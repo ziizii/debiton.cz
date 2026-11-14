@@ -1,0 +1,4 @@
+{{- /* Full legal identification of the operator from hugo.yaml (params.operator). */ -}}
+{{- with site.Params.operator -}}
+{{ .name }}, IČO {{ .ico }}, se sídlem {{ .address }}, {{ .register }}
+{{- end -}}

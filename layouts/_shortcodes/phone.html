@@ -1,0 +1,2 @@
+{{- /* Contact phone from hugo.yaml (params.contact.phone) as a tel: link. Renders nothing while unset. */ -}}
+{{- with site.Params.contact.phone }}<a href="tel:{{ site.Params.contact.phoneRaw | default . }}">{{ . }}</a>{{ end -}}

@@ -1,0 +1,21 @@
+# Statutory late-payment interest (úrok z prodlení) for the calculator.
+# Government regulation No. 351/2013 Coll.: ČNB repo rate valid on the last day
+# of the half-year preceding the start of the delay, plus 8 percentage points.
+#
+# Add a new row every half-year (on 1 January and 1 July) and update the
+# sentence `calculator.note` in content/_index.md.
+#
+# from: first day of the half-year in which the delay started
+# rate: % p.a.
+- { from: 2021-01-01, rate: 8.25 }
+- { from: 2021-07-01, rate: 8.5 }
+- { from: 2022-01-01, rate: 11.75 }
+- { from: 2022-07-01, rate: 15 }
+- { from: 2023-01-01, rate: 15 }
+- { from: 2023-07-01, rate: 15 }
+- { from: 2024-01-01, rate: 14.75 }
+- { from: 2024-07-01, rate: 12.75 }
+- { from: 2025-01-01, rate: 12 }
+- { from: 2025-07-01, rate: 11.5 }
+- { from: 2026-01-01, rate: 11.5 }
+- { from: 2026-07-01, rate: 11.75 }

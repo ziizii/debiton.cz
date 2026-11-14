@@ -1,0 +1,4 @@
+{{- /* Theme-independent contact line: "info@debiton.cz, tel. +420 …". */ -}}
+{{- $c := site.Params.contact -}}
+<a href="mailto:{{ $c.email }}">{{ $c.email }}</a>
+{{- with $c.phone }}, tel. <a href="tel:{{ $c.phoneRaw | default . }}">{{ . }}</a>{{ end -}}

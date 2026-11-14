@@ -6,17 +6,31 @@
 # same content (content/), contact details (params below) and data (data/).
 
 baseURL: https://www.debiton.cz/
-languageCode: cs-CZ
-defaultContentLanguage: cs
 title: Debiton
 theme: debiton
 
+# Languages. Every language lives in its own root (/cs/, /en/, …) with its
+# content in content/<lang>/ and UI strings in themes/<theme>/i18n/<lang>.yaml.
+# The site root "/" is not a Hugo page: after the build, scripts/localize-home.sh
+# copies each language's home page to public/localized-files/<lang>/index.html,
+# and Firebase Hosting i18n serves the one matching the visitor's
+# Accept-Language on "/" (same trick as www.stuchlikova.com). The default
+# language's home page is also copied to public/index.html as the fallback.
+# To add a language: add it here, create content/<lang>/ and the theme's
+# i18n/<lang>.yaml – the build script picks it up automatically.
+defaultContentLanguage: cs
+defaultContentLanguageInSubdir: true
+languages:
+  cs:
+    locale: cs-CZ
+    label: Česky
+    weight: 1
+    contentDir: content/cs
+    params:
+      ogLocale: cs_CZ
+
 enableRobotsTXT: true
 disableKinds: [taxonomy, term, rss]
-
-# Clean URLs without a trailing slash (/ochrana-osobnich-udaju), matching
-# Firebase Hosting `cleanUrls` + `trailingSlash: false` in firebase.json.
-uglyURLs: true
 
 markup:
   goldmark:
@@ -76,7 +90,8 @@ params:
   form:
     action: https://www.stuchlikova.com/form?_action=debtrecovery
     maxTotalMB: 25
-    subject: Debiton – vymáhání pohledávek
+    # Prefix of the enquiry text in the notification e-mail (all languages),
+    # so Debiton enquiries can be told apart from stuchlikova.com ones.
     sourceTag: "[Poptávka z webu Debiton]"
 
   # Public reCAPTCHA v3 site key (same key as stuchlikova.com). debiton.cz and
