@@ -102,13 +102,14 @@ params:
       country: CZ
     register: zapsaná v obchodním rejstříku vedeném Městským soudem v Praze, sp. zn. C 179593
 
-  # Enquiry form backend: the existing Cloud Function of stuchlikova.com
-  # (repo ziizii/stuchlikova-cloud-functions, action "debtrecovery").
-  # It must stay an absolute URL on www.stuchlikova.com: the function routes
-  # the notification to info@stuchlikova.com only when the request arrives on
-  # that host (see determinMailRecipient). Uploads: 25 MiB in total.
+  # Enquiry form backend: the Cloud Function "web" of stuchlikova.com (repo
+  # ziizii/stuchlikova-cloud-functions), action "debiton". firebase.json
+  # rewrites /form to it, the same way as on www.stuchlikova.com. The function
+  # picks the recipient by host: www.debiton.cz / debiton.cz → the office
+  # (DebitonMailTo), anything else (web.app, preview channels, localhost) →
+  # the developer address. Uploads: 25 MiB in total.
   form:
-    action: https://www.stuchlikova.com/form?_action=debtrecovery
+    action: /form?_action=debiton
     maxTotalMB: 25
     # Prefix of the enquiry text in the notification e-mail (all languages),
     # so Debiton enquiries can be told apart from stuchlikova.com ones.

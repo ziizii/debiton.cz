@@ -85,13 +85,14 @@ www.stuchlikova.com.
 
 ## Enquiry form
 
-The form posts to the existing Cloud Function of www.stuchlikova.com:
-`https://www.stuchlikova.com/form?_action=debtrecovery` (repo `ziizii/stuchlikova-cloud-functions`).
+The form posts to `/form?_action=debiton` on the site itself. `firebase.json` rewrites `/form` to the
+Cloud Function `web` (region `europe-west3`, repo `ziizii/stuchlikova-cloud-functions`), the same
+function and setup as on www.stuchlikova.com.
 
-- Files go to GCS (deleted after 30 days). The notification goes to **info@stuchlikova.com**, and its comment starts with `[Poptávka z webu Debiton]`.
-- The URL must stay absolute on www.stuchlikova.com. The function picks the recipient from the request host, and any host other than www.stuchlikova.com sends the e-mail to a developer address instead (`determinMailRecipient`).
+- Files go to GCS (deleted after 30 days). The notification email has the subject `Debiton – nová poptávka [hash]`, and its comment starts with `[Poptávka z webu Debiton]`.
+- **Who gets the email depends on the host.** Sent from www.debiton.cz or debiton.cz, it goes to the office (`DebitonMailTo` in the function, currently info@stuchlikova.com). Sent from anywhere else (`debiton-cz.web.app`, PR preview channels, the local emulator), it goes to the developer address, so test enquiries never reach the office.
 - The backend redirects back to the page with `#alert=thankYou` / `#alert=submitError`.
-- The reCAPTCHA v3 site key is shared with stuchlikova.com. **`debiton.cz` and `www.debiton.cz` must be on the key's allowed domains**, otherwise submissions are rejected. The same applies to localhost and preview-channel domains if you want to test the form there.
+- The reCAPTCHA v3 site key is shared with stuchlikova.com. **Every domain the form runs on must be on the key's allowed domains** (`debiton.cz`, `www.debiton.cz`, and `debiton-cz.web.app` for testing), otherwise reCAPTCHA reports "Invalid domain for site key" and the backend rejects the submission.
 - reCAPTCHA loads only when the form is first used.
 
 ## Analytics and cookies

@@ -11,6 +11,15 @@
     "i18n": {
       "root": "/localized-files"
     },
+    "rewrites": [
+      {
+        "source": "/form",
+        "function": {
+          "functionId": "web",
+          "region": "europe-west3"
+        }
+      }
+    ],
     "headers": [
       {
         "source": "**",
