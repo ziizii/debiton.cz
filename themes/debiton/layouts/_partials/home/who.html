@@ -1,0 +1,24 @@
+{{- with .Params.who }}
+<section class="bg-mint py-[clamp(64px,9vw,112px)]" id="{{ .id }}">
+  <div class="wrap">
+    <div class="mb-[clamp(36px,5vw,56px)] max-w-[760px]">
+      <h2 class="h-section">{{ .title | safeHTML }}</h2>
+      <p class="mt-4 max-w-[36em] text-[18.5px] text-muted">{{ .text | safeHTML }}</p>
+    </div>
+    <div class="grid grid-cols-2 gap-6 max-[860px]:grid-cols-1">
+      {{- range .items }}
+      <article class="rounded-2xl border border-line bg-white px-[30px] pt-[30px] pb-7">
+        <p class="mb-1.5 text-[15px] font-semibold text-green-deep">{{ .role | safeHTML }}</p>
+        <h3 class="mb-3 text-2xl">{{ .title | safeHTML }}</h3>
+        <p class="mb-[18px] text-[16.5px] text-muted">{{ .text | safeHTML }}</p>
+        <ul class="ticks grid gap-2.5">
+          {{- range .ticks }}
+          <li class="text-base">{{ . | safeHTML }}</li>
+          {{- end }}
+        </ul>
+      </article>
+      {{- end }}
+    </div>
+  </div>
+</section>
+{{- end }}

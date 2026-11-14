@@ -1,0 +1,13 @@
+<header class="sticky top-0 z-40 border-b border-line bg-white/92 backdrop-blur-[10px]">
+  <div class="wrap flex h-header items-center gap-7 max-[640px]:gap-3">
+    <a class="mr-auto text-[27px] font-semibold tracking-[-.02em] text-green no-underline" href="#top" aria-label="{{ i18n "logoAria" }}">{{ site.Title }}</a>
+    <nav class="nav" id="nav" aria-label="{{ i18n "mainNav" }}">
+      {{- range .Params.nav }}
+      <a href="{{ .href }}">{{ .label | safeHTML }}</a>
+      {{- end }}
+    </nav>
+    {{ partial "phone-link.html" (dict "class" "whitespace-nowrap text-[15.5px] font-semibold text-ink no-underline hover:text-green-deep max-[640px]:hidden") }}
+    {{ with .Params.headerCta }}<a class="btn btn-sm max-[640px]:hidden" href="{{ .href }}">{{ .label | safeHTML }}</a>{{ end }}
+    <button class="menu-btn hidden min-h-11 cursor-pointer items-center rounded-[10px] border border-line-2 bg-white px-3.5 text-[15px] font-semibold text-ink max-[1060px]:inline-flex" type="button" aria-controls="nav" aria-expanded="false" data-open="{{ i18n "menu" }}" data-close="{{ i18n "menuClose" }}">{{ i18n "menu" }}</button>
+  </div>
+</header>

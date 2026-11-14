@@ -1,0 +1,39 @@
+{{- with .Params.pricing }}
+<section class="bg-mint py-[clamp(64px,9vw,112px)]" id="{{ .id }}">
+  <div class="wrap">
+    <div class="mb-[clamp(36px,5vw,56px)] max-w-[760px]">
+      <h2 class="h-section">{{ .title | safeHTML }}</h2>
+      <p class="mt-4 max-w-[36em] text-[18.5px] text-muted">{{ .text | safeHTML }}</p>
+    </div>
+    <div class="grid grid-cols-[minmax(0,.85fr)_minmax(0,1.15fr)] items-start gap-14 max-[960px]:grid-cols-1 max-[960px]:gap-10">
+      {{- with .card }}
+      <div class="rounded-2xl border border-line bg-white px-8 pt-[34px] pb-8 shadow-card">
+        <p class="text-base text-muted">{{ .label | safeHTML }}</p>
+        <p class="mt-2.5 mb-1.5 text-[clamp(64px,8vw,92px)] leading-none font-semibold tracking-[-.05em] text-green-deep">{{ .price | safeHTML }}</p>
+        <p class="mb-6 text-base text-muted">{{ .note | safeHTML }}</p>
+        <ul class="ticks mb-7 grid gap-2.5">
+          {{- range .ticks }}
+          <li class="text-[16.5px]">{{ . | safeHTML }}</li>
+          {{- end }}
+        </ul>
+        {{ with .cta }}<a class="btn btn-lg w-full" href="{{ .href }}">{{ .label | safeHTML }}</a>{{ end }}
+      </div>
+      {{- end }}
+      <div>
+        {{- with .scenarios }}
+        <table class="scen w-full border-collapse text-base">
+          <caption class="mb-3 text-left text-[21px] font-semibold tracking-[-.015em]">{{ .caption | safeHTML }}</caption>
+          <thead><tr>{{ range .head }}<th scope="col">{{ . }}</th>{{ end }}</tr></thead>
+          <tbody>
+            {{- range .rows }}
+            <tr><th scope="row">{{ .situation | safeHTML }}</th><td><b class="block text-[17px] font-semibold text-green-deep">{{ .price | safeHTML }}</b>{{ with .note }}<span class="mt-0.5 block text-[15px]">{{ . | safeHTML }}</span>{{ end }}</td></tr>
+            {{- end }}
+          </tbody>
+        </table>
+        {{- end }}
+        <p class="mt-[18px] text-[14.5px] text-faint">{{ .note | safeHTML }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+{{- end }}

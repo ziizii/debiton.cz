@@ -1,0 +1,22 @@
+{{- with .Params.timeline }}
+<section class="bg-mint py-[clamp(64px,9vw,112px)]" id="{{ .id }}">
+  <div class="wrap">
+    <div class="mb-[clamp(36px,5vw,56px)] max-w-[760px]">
+      <h2 class="h-section">{{ .title | safeHTML }}</h2>
+      <p class="mt-4 max-w-[36em] text-[18.5px] text-muted">{{ .text | safeHTML }}</p>
+    </div>
+    <ol class="timeline grid grid-cols-4 max-[900px]:grid-cols-1">
+      {{- range .items }}
+      <li{{ if .final }} class="end"{{ end }}>
+        <span class="day">{{ .day }}</span>
+        <h3 class="mb-2 text-xl">{{ .title | safeHTML }}</h3>
+        <p class="text-base text-muted">{{ .text | safeHTML }}</p>
+        {{- with .tag }}
+        <span class="mt-3 inline-block rounded-full bg-chip px-[11px] py-1 text-[13px] font-semibold text-green-deep">{{ . | safeHTML }}</span>
+        {{- end }}
+      </li>
+      {{- end }}
+    </ol>
+  </div>
+</section>
+{{- end }}

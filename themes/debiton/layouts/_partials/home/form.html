@@ -1,0 +1,75 @@
+{{- $f := .Params.form }}
+{{- $c := site.Params.contact }}
+{{- $emailLink := printf `<a class="font-semibold text-inherit" href="mailto:%s">%s</a>` $c.email $c.email }}
+<section class="py-[clamp(64px,9vw,112px)]" id="{{ $f.id }}">
+  <div class="wrap grid grid-cols-[minmax(0,.85fr)_minmax(0,1.15fr)] items-start gap-16 max-[960px]:grid-cols-1 max-[960px]:gap-10">
+    <div>
+      <h2 class="h-section">{{ $f.title | safeHTML }}</h2>
+      <p class="mt-4 max-w-[36em] text-[18.5px] text-muted">{{ $f.lead | safeHTML }}</p>
+      <ol class="next mt-8">
+        {{- range $f.next }}
+        <li><b class="block text-[17px] font-semibold">{{ .title | safeHTML }}</b><span class="text-base text-muted">{{ .text | safeHTML }}</span></li>
+        {{- end }}
+      </ol>
+      {{- with $c.phone }}
+      <p class="mt-2.5 text-base text-muted">{{ $f.call }} {{ partial "phone-link.html" (dict "class" "font-semibold whitespace-nowrap text-green-deep no-underline") }}</p>
+      {{- end }}
+    </div>
+
+    <div>
+      <div id="thankYou" class="rounded-[18px] border border-line bg-white px-7 py-[clamp(36px,5vw,56px)] text-center shadow-panel" hidden tabindex="-1">
+        <div class="mx-auto mb-[22px] flex size-16 items-center justify-center rounded-full bg-green text-white" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 20 20"><path d="M5 10.4l3.2 3.2 6.6-7" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3 class="mb-2.5 text-[26px]">{{ $f.thanksTitle }}</h3>
+        <p class="mx-auto max-w-[400px] text-[17px] text-muted">{{ $f.thanksText | safeHTML }}</p>
+      </div>
+
+      {{- /* Posts to the stuchlikova.com Cloud Function (action debtrecovery), see hugo.yaml params.form. */}}
+      <form id="debtForm" class="rounded-[18px] border border-line bg-white p-[clamp(22px,4vw,38px)] shadow-panel" method="post" action="{{ site.Params.form.action }}" enctype="multipart/form-data" novalidate>
+        {{- $err := replace $f.submitError "{email}" $emailLink }}
+        {{- with $c.phone }}{{ $err = printf "%s%s" $err (replace $f.submitErrorPhone "{phone}" (partial "phone-link.html" (dict "class" "font-semibold text-inherit"))) }}{{ end }}
+        <div id="submitError" class="mb-4 text-[15px] text-red" role="alert" hidden>{{ $err | safeHTML }}.</div>
+
+        <span class="mb-2 block text-[15px] font-semibold" id="filesLabel">{{ $f.filesLabel | safeHTML }}</span>
+        <div id="drop" class="drop cursor-pointer rounded-[14px] border-2 border-dashed border-line-2 bg-[#f7fbf8] px-5 py-[30px] text-center transition-colors hover:border-green hover:bg-mint" role="button" tabindex="0" aria-labelledby="filesLabel" aria-describedby="dropHint">
+          <span class="mb-2 inline-block text-green [&>svg]:size-[42px]">{{ partial "icon.html" "upload" }}</span>
+          <div class="mb-[3px] text-[16.5px] font-semibold">{{ $f.dropTitle }}</div>
+          <div class="text-sm text-faint" id="dropHint">{{ $f.dropHint }}</div>
+          <input id="files" name="files" type="file" multiple hidden>
+        </div>
+        <div id="chips" aria-live="polite"></div>
+        <template id="chipTpl"><div class="chip"><span></span><button type="button">×</button></div></template>
+
+        <fieldset class="mt-6">
+          <legend class="mb-2.5 flex w-full flex-wrap justify-between gap-x-3 gap-y-1 text-[15px] font-semibold">{{ $f.contactLegend }} <span class="text-sm font-normal text-faint">{{ $f.contactHint }} <b class="text-red" aria-hidden="true">*</b></span></legend>
+          <div class="grid grid-cols-2 gap-3 max-[520px]:grid-cols-1">
+            <div><label class="mb-[5px] block text-sm text-muted" for="email">{{ $f.emailLabel }}</label><input class="field" id="email" name="Email" type="email" autocomplete="email" inputmode="email" placeholder="{{ $f.emailPlaceholder }}"></div>
+            <div><label class="mb-[5px] block text-sm text-muted" for="phone">{{ $f.phoneLabel }}</label><input class="field" id="phone" name="Phone" type="tel" autocomplete="tel" placeholder="{{ $f.phonePlaceholder }}"></div>
+          </div>
+        </fieldset>
+
+        <label class="mt-[18px] mb-2 block text-[15px] font-semibold" for="company">{{ $f.companyLabel }} <span class="font-normal text-faint">{{ $f.optional }}</span></label>
+        <input class="field" id="company" type="text" autocomplete="organization" placeholder="{{ $f.companyPlaceholder }}">
+
+        <label class="mt-[18px] mb-2 block text-[15px] font-semibold" for="message">{{ $f.messageLabel | safeHTML }} <span class="font-normal text-faint">{{ $f.optional }}</span></label>
+        <textarea class="field" id="message" rows="3" placeholder="{{ $f.messagePlaceholder }}"></textarea>
+        <input type="hidden" name="Message" id="messageOut">
+
+        <div id="clientError" class="mt-3.5 text-[15px] text-red" role="alert" hidden></div>
+
+        <input type="hidden" name="Subject" value="{{ $f.subject }}">
+        <input type="hidden" name="Language" value="{{ site.Language.Lang }}">
+        <input type="hidden" name="_next" id="nextOk" value="{{ .Permalink }}#alert=thankYou">
+        <input type="hidden" name="_next_error" id="nextErr" value="{{ .Permalink }}#alert=submitError">
+        <input type="hidden" name="_recaptcha_response" value="">
+
+        <button id="submit" class="btn btn-lg mt-6 w-full disabled:cursor-progress disabled:opacity-85" type="submit">
+          <span id="spinner" class="spin" hidden aria-hidden="true"></span>
+          <span id="submitLabel">{{ $f.submit | safeHTML }}</span>
+        </button>
+        <p id="sendingNote" class="mt-3.5 text-center text-sm text-faint" role="status" aria-live="polite" hidden>{{ $f.sendingNote }}</p>
+        <p class="mt-3.5 text-center text-sm text-faint">{{ $f.fine }}</p>
+        <p class="mt-3.5 text-center text-[12.5px] leading-normal text-faint [&_a]:text-muted [&_a]:underline">{{ $f.legal | safeHTML }}</p>
+      </form>
+    </div>
+  </div>
+</section>

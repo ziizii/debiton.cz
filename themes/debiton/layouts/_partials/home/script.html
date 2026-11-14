@@ -1,0 +1,31 @@
+{{- /* Settings and translated strings for assets/js/main.js. */}}
+{{- $f := .Params.form }}
+{{- $calc := .Params.calculator }}
+{{- $rates := slice }}
+{{- range hugo.Data.interest_rates }}
+  {{- $rates = $rates | append (slice (time.Format "2006-01-02" .from) .rate) }}
+{{- end }}
+{{- $cfg := dict
+  "locale" site.Language.Locale
+  "siteKey" site.Params.recaptcha.siteKey
+  "maxTotal" (mul site.Params.form.maxTotalMB 1048576)
+  "fee" 1200
+  "rates" $rates
+  "sourceTag" site.Params.form.sourceTag
+  "companyPrefix" ($f.companyPrefix | default "Firma: ")
+  "msg" (dict
+    "contact" $f.errors.contact "email" $f.errors.email "phone" $f.errors.phone "size" $f.errors.size
+    "sending" $f.sending "removeFile" $f.removeFile
+    "warnNotDue" $calc.warnNotDue "warnOld" $calc.warnOld
+    "feeCount" ($calc.feeCount | default "") "invoiceWords" ($calc.invoiceWords | default dict)
+    "messagePrefix" $calc.messagePrefix "dueWord" $calc.dueWord
+    "menu" (i18n "menu") "menuClose" (i18n "menuClose"))
+}}
+<script id="debiton-config" type="application/json">{{ $cfg | jsonify | safeJS }}</script>
+{{- with resources.Get "js/main.js" | js.Build (dict "minify" (not hugo.IsDevelopment) "target" "es2017") }}
+{{- if hugo.IsDevelopment }}
+<script src="{{ .RelPermalink }}" defer></script>
+{{- else }}
+<script>{{ .Content | safeJS }}</script>
+{{- end }}
+{{- end }}

@@ -102,6 +102,7 @@ form:
     ochrany soukromí</a> a&nbsp;<a href="https://policies.google.com/terms?hl=cs"
     rel="noopener">smluvní podmínky</a> Google.
   removeFile: Odebrat soubor
+  companyPrefix: "Firma: "
   errors:
     contact: Zadejte prosím e-mail nebo telefon, ať se Vám můžeme ozvat.
     email: Zadejte prosím platný e-mail, ať se Vám můžeme ozvat.
@@ -237,6 +238,9 @@ calculator:
   cta: Nahrát tyto faktury
   warnNotDue: Faktura ještě není po splatnosti.
   warnOld: Faktura je po splatnosti déle než 3 roky. Pohledávka může být promlčená, pošlete nám ji a posoudíme to.
+  # Fee label with the invoice count; {n} = count, {invoices} = word below by CLDR plural form.
+  feeCount: "Náklady 1 200 Kč × {n} {invoices}"
+  invoiceWords: { one: faktura, few: faktury, many: faktury, other: faktur }
   messagePrefix: "Faktury po splatnosti:"
   dueWord: splatná
 

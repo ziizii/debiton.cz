@@ -98,3 +98,8 @@ params:
   # www.debiton.cz must be on the key's domain list in the reCAPTCHA admin.
   recaptcha:
     siteKey: 6LeBILwUAAAAAElNihmOk3AvB-qK4lBRfyscIEG_
+
+# Allow Hugo to run the Tailwind CSS CLI (node_modules/.bin/tailwindcss).
+security:
+  exec:
+    allow: ['^(dart-)?sass$', '^go$', '^git$', '^node$', '^postcss$', '^tailwindcss$']

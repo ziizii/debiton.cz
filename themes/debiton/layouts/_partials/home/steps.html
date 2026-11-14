@@ -1,0 +1,15 @@
+{{- with .Params.steps }}
+<section class="py-[clamp(64px,9vw,112px)]">
+  <div class="wrap">
+    <div class="mb-[clamp(36px,5vw,56px)] max-w-[760px]">
+      <h2 class="h-section">{{ .title | safeHTML }}</h2>
+      <p class="mt-4 max-w-[36em] text-[18.5px] text-muted">{{ .text | safeHTML }}</p>
+    </div>
+    <ol class="steps3 grid grid-cols-3 gap-7 max-[860px]:grid-cols-1">
+      {{- range .items }}
+      <li class="relative rounded-card border border-line bg-white px-[26px] pt-7 pb-[30px]"><h3 class="mb-2 text-xl">{{ .title | safeHTML }}</h3><p class="text-[16.5px] text-muted">{{ .text | safeHTML }}</p></li>
+      {{- end }}
+    </ol>
+  </div>
+</section>
+{{- end }}

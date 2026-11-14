@@ -1,0 +1,41 @@
+{{- with .Params.letter }}
+<section class="py-[clamp(64px,9vw,112px)]" id="{{ .id }}">
+  <div class="wrap grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-start gap-16 max-[960px]:grid-cols-1 max-[960px]:gap-11">
+    <div>
+      <h2 class="h-section">{{ .title | safeHTML }}</h2>
+      <p class="mt-4 mb-[26px] max-w-[36em] text-[18.5px] text-muted">{{ .lead | safeHTML }}</p>
+      <ul class="ticks mb-[30px] grid gap-2.5">
+        {{- range .ticks }}
+        <li class="text-[16.5px]">{{ . | safeHTML }}</li>
+        {{- end }}
+      </ul>
+      {{- with .compare }}
+      <table class="vs w-full border-collapse text-[15px]">
+        <thead><tr>{{ range .head }}<th scope="col">{{ . | safeHTML }}</th>{{ end }}</tr></thead>
+        <tbody>
+          {{- range .rows }}
+          <tr><th scope="row">{{ index . 0 | safeHTML }}</th><td>{{ index . 1 | safeHTML }}</td><td>{{ index . 2 | safeHTML }}</td></tr>
+          {{- end }}
+        </tbody>
+      </table>
+      {{- end }}
+    </div>
+
+    {{- with .sample }}
+    <article class="letter relative rounded-md border border-line bg-white px-9 pt-[34px] pb-[30px] font-serif text-[15.5px] leading-[1.6] text-[#2a2d31] shadow-letter max-[480px]:px-5 max-[480px]:pt-6 max-[480px]:pb-[22px] max-[480px]:text-[15px]" aria-label="{{ .ariaLabel }}">
+      <div class="mb-[18px] flex items-start justify-between border-b border-line-2 pb-3.5"><div><b class="text-[17px] font-semibold tracking-[.01em]">{{ .from }}</b><small class="mt-0.5 block font-sans text-[12.5px] text-faint">{{ .onBehalf }}</small></div><span class="rounded-[5px] border-[1.5px] border-current px-2 py-[3px] font-sans text-xs font-bold tracking-[.14em] text-red">{{ .badge }}</span></div>
+      <p class="mb-4 font-sans text-[13.5px] text-muted [&_b]:font-semibold [&_b]:text-ink">{{ .subject | safeHTML }}</p>
+      <p>{{ .greeting }}</p>
+      <p>{{ .intro | safeHTML }}</p>
+      <table class="mt-3.5 mb-1.5 w-full border-collapse text-[15px]">
+        {{- range .rows }}
+        <tr><td>{{ index . 0 | safeHTML }}</td><td>{{ index . 1 | safeHTML }}</td></tr>
+        {{- end }}
+      </table>
+      <p>{{ .outro | safeHTML }}</p>
+      <p class="mt-[18px]">{{ .closing | safeHTML }}<i class="block not-italic text-muted">{{ .signature }}</i></p>
+    </article>
+    {{- end }}
+  </div>
+</section>
+{{- end }}

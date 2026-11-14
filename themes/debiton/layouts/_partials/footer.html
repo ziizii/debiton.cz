@@ -1,0 +1,37 @@
+{{- /* Footer copy comes from the language's home page (content/<lang>/_index.md → footer). */}}
+{{- $home := site.Home }}
+{{- $f := $home.Params.footer }}
+{{- $base := cond .IsHome "" $home.RelPermalink }}
+{{- $c := site.Params.contact }}
+{{- $op := site.Params.operator }}
+<footer class="bg-night text-[15px] text-night-text [&_a]:no-underline [&_a:hover]:text-white [&_a:hover]:underline" id="foot">
+  <div class="wrap">
+    <div class="grid grid-cols-[1.3fr_1fr_1fr] gap-10 pt-14 pb-10 max-[760px]:grid-cols-1 max-[760px]:gap-7">
+      <div>
+        <div class="mb-2 text-[27px] font-semibold tracking-[-.02em] text-white">{{ site.Title }}</div>
+        <p>{{ $f.tagline | safeHTML }}</p>
+      </div>
+      <div>
+        <h4 class="mb-2.5 text-[15px] font-semibold text-white">{{ $f.serviceTitle }}</h4>
+        <ul class="grid gap-[7px]">
+          {{- range $f.service }}
+          <li><a href="{{ $base }}{{ .href }}">{{ .label | safeHTML }}</a></li>
+          {{- end }}
+        </ul>
+      </div>
+      <div>
+        <h4 class="mb-2.5 text-[15px] font-semibold text-white">{{ $f.contactTitle }}</h4>
+        <ul class="grid gap-[7px]">
+          <li><a href="mailto:{{ $c.email }}">{{ $c.email }}</a></li>
+          {{- with $c.phone }}<li>{{ partial "phone-link.html" dict }}</li>{{ end }}
+          {{- with $f.uploadLink }}<li><a href="{{ $base }}{{ .href }}">{{ .label | safeHTML }}</a></li>{{ end }}
+          {{- with $f.privacyLink }}<li><a href="{{ .href }}">{{ .label | safeHTML }}</a></li>{{ end }}
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-night-line pt-5 pb-7 text-[13.5px] leading-[1.6]">
+      {{ i18n "operatedBy" }} {{ $op.name }}, IČO {{ $op.ico | replaceRE " " "&nbsp;" | safeHTML }}, {{ i18n "seat" }} {{ $op.address }}, {{ $op.register }}. {{ $f.legalServices }}<br>
+      © {{ now.Year }} {{ $op.name }}
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,18 @@
+{{- with .Params.how }}
+<section class="bg-mint py-[clamp(64px,9vw,112px)]" id="{{ .id }}">
+  <div class="wrap">
+    <div class="mb-[clamp(36px,5vw,56px)] max-w-[760px]">
+      <h2 class="h-section">{{ .title | safeHTML }}</h2>
+      <p class="mt-4 max-w-[36em] text-[18.5px] text-muted">{{ .text | safeHTML }}</p>
+    </div>
+    <div class="grid grid-cols-2 gap-x-14 max-[760px]:grid-cols-1">
+      {{- range .items }}
+      <article class="grid grid-cols-[48px_1fr] gap-x-[18px] border-t border-line-2 pt-7 pb-[34px]">
+        <span class="text-green">{{ partial "icon.html" .icon }}</span>
+        <div><h3 class="mt-1.5 mb-2 text-[21px] tracking-[-.015em]">{{ .title | safeHTML }}</h3><p class="text-[16.5px] text-muted [&_strong]:font-semibold [&_strong]:text-ink">{{ .text | safeHTML }}</p></div>
+      </article>
+      {{- end }}
+    </div>
+  </div>
+</section>
+{{- end }}

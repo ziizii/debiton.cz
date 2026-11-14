@@ -1,0 +1,4 @@
+name = "Debiton"
+description = "One-page theme for Debiton (2026 launch design): mint/green, Instrument Sans + Source Serif 4, Tailwind CSS v4."
+license = "Proprietary"
+min_version = "0.146.0"

@@ -1,0 +1,29 @@
+{{ define "main" }}
+{{- /* Ink-bleed filter for the "paid" stamp */}}
+<svg width="0" height="0" class="absolute" aria-hidden="true" focusable="false">
+  <filter id="ink" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.4 1.75" result="m"/>
+    <feComposite in="d" in2="m" operator="in"/>
+  </filter>
+</svg>
+<a class="absolute -left-[999px] top-2 z-60 rounded-lg bg-white px-3 py-2 focus:left-2" href="#{{ .Params.form.id }}">{{ .Params.skipLink }}</a>
+{{ partial "home/header.html" . }}
+<main id="top">
+{{ partial "home/hero.html" . }}
+{{ partial "home/form.html" . }}
+{{ partial "home/how.html" . }}
+{{ partial "home/steps.html" . }}
+{{ partial "home/timeline.html" . }}
+{{ partial "home/letter.html" . }}
+{{ partial "home/pricing.html" . }}
+{{ partial "home/calculator.html" . }}
+{{ partial "home/abroad.html" . }}
+{{ partial "home/who.html" . }}
+{{ partial "home/faq.html" . }}
+</main>
+{{ partial "footer.html" . }}
+<div class="mcta fixed inset-x-3 bottom-3 z-45" id="mcta"><a class="btn btn-lg w-full shadow-[0_10px_30px_rgba(21,53,36,.25)]" href="#{{ .Params.form.id }}">{{ .Params.mobileCta | safeHTML }}</a></div>
+{{ partial "home/script.html" . }}
+{{ end }}

@@ -1,0 +1,5 @@
+{{- /* Phone link from params.contact; renders nothing while the phone is unset.
+       Context: dict "class" "<css classes>" (optional). */ -}}
+{{- with site.Params.contact.phone -}}
+<a{{ with $.class }} class="{{ . }}"{{ end }} href="tel:{{ site.Params.contact.phoneRaw | default . }}">{{ . }}</a>
+{{- end -}}

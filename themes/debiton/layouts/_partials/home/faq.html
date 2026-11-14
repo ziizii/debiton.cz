@@ -1,0 +1,23 @@
+{{- with .Params.faq }}
+{{- $c := site.Params.contact }}
+<section class="py-[clamp(64px,9vw,112px)]" id="{{ .id }}">
+  <div class="wrap grid grid-cols-[minmax(0,.7fr)_minmax(0,1.3fr)] items-start gap-14 max-[960px]:grid-cols-1 max-[960px]:gap-7">
+    <div class="sticky top-[calc(var(--spacing-header)+28px)] max-[960px]:static">
+      <h2 class="h-section">{{ .title | safeHTML }}</h2>
+      <div class="mt-7 rounded-[14px] border border-line bg-white px-[22px] pt-[22px] pb-5 [&_a]:block [&_a]:py-[3px] [&_a]:text-lg [&_a]:font-semibold [&_a]:text-green-deep [&_a]:no-underline [&_a:hover]:underline">
+        <p class="mb-2.5 text-[15.5px] text-muted">{{ if $c.phone }}{{ .help }}{{ else }}{{ .helpNoPhone }}{{ end }}</p>
+        {{ partial "phone-link.html" dict }}
+        <a href="mailto:{{ $c.email }}">{{ $c.email }}</a>
+      </div>
+    </div>
+    <div class="faq">
+      {{- range .items }}
+      <details>
+        <summary>{{ .q | safeHTML }}</summary>
+        <div class="a pr-10 pb-[22px] text-[16.5px] text-muted">{{ .a | markdownify }}</div>
+      </details>
+      {{- end }}
+    </div>
+  </div>
+</section>
+{{- end }}

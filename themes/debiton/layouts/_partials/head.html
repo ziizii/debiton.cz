@@ -1,0 +1,45 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{- $title := .Params.seoTitle | default .Title }}
+{{- $desc := .Params.description | default site.Params.description | plainify | htmlUnescape }}
+<title>{{ $title }}</title>
+<meta name="description" content="{{ $desc }}">
+{{- if .Params.noindex }}
+<meta name="robots" content="noindex">
+{{- end }}
+<link rel="canonical" href="{{ .Permalink }}">
+{{- if .IsTranslated }}
+{{- range .AllTranslations }}
+<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
+{{- end }}
+{{- if .IsHome }}
+{{- /* "/" serves the home page in the visitor's language (Firebase i18n). */}}
+<link rel="alternate" hreflang="x-default" href="{{ "/" | absURL }}">
+{{- end }}
+{{- end }}
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/instrument-sans-latin-ext-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="{{ site.Params.themeColor }}">
+{{- if .IsHome }}
+{{- $og := .Params.og | default dict }}
+<meta property="og:type" content="website">
+<meta property="og:locale" content="{{ site.Language.Params.ogLocale }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:title" content="{{ $og.title | default $title }}">
+<meta property="og:description" content="{{ $og.description | default $desc }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:image" content="{{ site.Params.ogImage | absURL }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+{{- end }}
+{{- /* Tailwind: in production the CSS is built after all pages are rendered
+       (templates.Defer), so hugo_stats.json is complete, and inlined. */}}
+{{- if hugo.IsDevelopment }}
+{{ partial "css.html" . }}
+{{- else }}
+{{- with (templates.Defer (dict "key" "global")) }}
+{{ partial "css.html" . }}
+{{- end }}
+{{- end }}
