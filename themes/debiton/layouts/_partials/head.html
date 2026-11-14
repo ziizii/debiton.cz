@@ -1,6 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {{- $title := .Params.seoTitle | default .Title }}
+{{- if eq .Kind "404" }}{{ $title = printf "%s – %s" (i18n "notFoundTitle") site.Title }}{{ end }}
 {{- $desc := .Params.description | default site.Language.Params.description | plainify | htmlUnescape }}
 <title>{{ $title }}</title>
 <meta name="description" content="{{ $desc }}">

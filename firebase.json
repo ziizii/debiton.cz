@@ -1,0 +1,85 @@
+{
+  "hosting": {
+    "site": "debiton-cz",
+    "public": "public",
+    "cleanUrls": true,
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "i18n": {
+      "root": "/localized-files"
+    },
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          },
+          {
+            "key": "Referrer-Policy",
+            "value": "strict-origin-when-cross-origin"
+          },
+          {
+            "key": "X-Frame-Options",
+            "value": "SAMEORIGIN"
+          }
+        ]
+      },
+      {
+        "regex": "^(?:/|/.*/|/.*\\.html)$",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=300"
+          }
+        ]
+      },
+      {
+        "source": "/fonts/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          },
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(svg|png|jpg|jpeg|webp|ico)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=604800"
+          }
+        ]
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/ochrana-osobnich-udaju",
+        "destination": "/cs/ochrana-osobnich-udaju/",
+        "type": 301
+      },
+      {
+        "source": "/zasady-zpracovani-osobnich-udaju",
+        "destination": "/cs/ochrana-osobnich-udaju/",
+        "type": 301
+      }
+    ]
+  },
+  "emulators": {
+    "hosting": {
+      "port": 5050
+    },
+    "ui": {
+      "enabled": false
+    }
+  }
+}
