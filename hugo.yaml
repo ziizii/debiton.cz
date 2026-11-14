@@ -1,0 +1,85 @@
+# Debiton – www.debiton.cz
+#
+# The look of the site lives in a Hugo theme under themes/. The theme is
+# switchable: set `theme` below, or override it per run with
+# `make serve THEME=<name>` (or `hugo --theme <name>`). Every theme reads the
+# same content (content/), contact details (params below) and data (data/).
+
+baseURL: https://www.debiton.cz/
+languageCode: cs-CZ
+defaultContentLanguage: cs
+title: Debiton
+theme: debiton
+
+enableRobotsTXT: true
+disableKinds: [taxonomy, term, rss]
+
+# Clean URLs without a trailing slash (/ochrana-osobnich-udaju), matching
+# Firebase Hosting `cleanUrls` + `trailingSlash: false` in firebase.json.
+uglyURLs: true
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true # raw HTML (e.g. &nbsp;) in content is intentional
+
+# Tailwind CSS v4 (css.TailwindCSS) scans the build stats Hugo writes.
+build:
+  buildStats:
+    enable: true
+  cachebusters:
+    - source: assets/notwatching/hugo_stats\.json
+      target: css
+    - source: (postcss|tailwind)\.config\.js
+      target: css
+
+module:
+  mounts:
+    - source: assets
+      target: assets
+    - source: hugo_stats.json
+      target: assets/notwatching/hugo_stats.json
+      disableWatch: true
+
+sitemap:
+  changeFreq: ""
+  priority: -1
+
+params:
+  description: >-
+    Akce pro prvních 50 firem: pohledávky z podnikání vymáháme za 0 % z vymožené
+    částky, i malé faktury bez minimální částky. Upomínky posílá advokátní
+    kancelář, náklady nese dlužník.
+  themeColor: "#0e8050"
+  ogImage: og-image.png
+
+  # Contact details shown across the site.
+  # phone: leave empty until the new T-Mobile line exists. While it is empty,
+  # every phone link and "call us" sentence is hidden instead of showing a
+  # placeholder. Fill in both values, then redeploy.
+  contact:
+    email: info@debiton.cz
+    phone: ""     # display form, e.g. "+420 777 123 456"
+    phoneRaw: ""  # tel: link form, e.g. "+420777123456"
+
+  operator:
+    name: NewCo Czech Companies, s.r.o.
+    ico: 248 43 709
+    address: Hnězdenská 767/4a, Troja, 181 00 Praha 8
+    register: zapsaná v obchodním rejstříku vedeném Městským soudem v Praze, sp. zn. C 179593
+
+  # Enquiry form backend: the existing Cloud Function of stuchlikova.com
+  # (repo ziizii/stuchlikova-cloud-functions, action "debtrecovery").
+  # It must stay an absolute URL on www.stuchlikova.com: the function routes
+  # the notification to info@stuchlikova.com only when the request arrives on
+  # that host (see determinMailRecipient). Uploads: 25 MiB in total.
+  form:
+    action: https://www.stuchlikova.com/form?_action=debtrecovery
+    maxTotalMB: 25
+    subject: Debiton – vymáhání pohledávek
+    sourceTag: "[Poptávka z webu Debiton]"
+
+  # Public reCAPTCHA v3 site key (same key as stuchlikova.com). debiton.cz and
+  # www.debiton.cz must be on the key's domain list in the reCAPTCHA admin.
+  recaptcha:
+    siteKey: 6LeBILwUAAAAAElNihmOk3AvB-qK4lBRfyscIEG_

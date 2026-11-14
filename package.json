@@ -1,0 +1,13 @@
+{
+  "name": "debiton.cz",
+  "private": true,
+  "description": "Debiton – www.debiton.cz (Hugo + Tailwind CSS, Firebase Hosting)",
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.3.5",
+    "firebase-tools": "15.36.0",
+    "tailwindcss": "4.3.5"
+  }
+}
