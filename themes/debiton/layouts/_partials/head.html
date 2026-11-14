@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {{- $title := .Params.seoTitle | default .Title }}
-{{- $desc := .Params.description | default site.Params.description | plainify | htmlUnescape }}
+{{- $desc := .Params.description | default site.Language.Params.description | plainify | htmlUnescape }}
 <title>{{ $title }}</title>
 <meta name="description" content="{{ $desc }}">
 {{- if .Params.noindex }}
@@ -34,8 +34,12 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 {{- end }}
+{{- if .IsHome }}
+{{ partial "jsonld.html" . }}
+{{- end }}
 {{- /* Tailwind: in production the CSS is built after all pages are rendered
-       (templates.Defer), so hugo_stats.json is complete, and inlined. */}}
+       (templates.Defer), so hugo_stats.json is complete, and inlined as
+       <style data-purge>; scripts/purge-inline-css.js then trims it per page. */}}
 {{- if hugo.IsDevelopment }}
 {{ partial "css.html" . }}
 {{- else }}

@@ -1,0 +1,12 @@
+{{- /* Analytics + cookie consent without Google Tag Manager. Configuration in
+       data/tracking/{google,events,consent}.yaml. Renders nothing at all while
+       both google.enabled and consent.enabled are false. */ -}}
+{{- with hugo.Data.tracking -}}
+{{- if or .google.enabled .consent.enabled -}}
+  {{- partial "consent-banner.html" . -}}
+  {{- $config := dict "google" .google "events" .events "consent" .consent -}}
+  {{- with resources.Get "js/tracking.js" | resources.Minify -}}
+<script>window.trackingConfig={{ $config | jsonify | safeJS }};{{ .Content | safeJS }}</script>
+  {{- end -}}
+{{- end -}}
+{{- end -}}

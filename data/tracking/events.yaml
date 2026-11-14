@@ -1,0 +1,62 @@
+# Analytics events (what would otherwise be GTM tags + triggers).
+#
+# Every rule:
+#   name:    description for humans (shown in the console on test hosts)
+#   on:      exactly one of
+#              click: <CSS selector>   a click on (or inside) a matching element
+#              outbound: true          a click on a link to another website
+#              urlContains: <text>     the page is opened with <text> in its URL
+#              event: <name>           site JavaScript calls window.track('<name>')
+#   ga4:     GA4 event name
+#   params:  GA4 parameters; {page_url} {page_path} {page_title} {referrer}
+#            {click_url} {click_text} are replaced
+#   adsConversion: Google Ads conversion label (for `ads` in google.yaml)
+
+- name: Klik na telefon
+  on:
+    click: 'a[href^="tel:"]'
+  ga4: click_phone
+  params:
+    Page URL: "{page_url}"
+    Click Text: "{click_text}"
+
+- name: Klik na e-mail
+  on:
+    click: 'a[href^="mailto:"]'
+  ga4: email_clicked
+  params:
+    Page URL: "{page_url}"
+    Click Text: "{click_text}"
+
+- name: Odchozí odkaz
+  on:
+    outbound: true
+  ga4: outgoing_link
+  params:
+    Page URL: "{page_url}"
+    Click Text: "{click_text}"
+
+- name: Tlačítko na formulář
+  on:
+    click: 'a[href$="#formular"]'
+  ga4: button_to_form
+  params:
+    Page URL: "{page_url}"
+    Click Text: "{click_text}"
+
+- name: Kalkulačka – nahrát faktury
+  on:
+    click: '#calcCta'
+  ga4: calculator_to_form
+  params:
+    Page URL: "{page_url}"
+
+- name: Odeslaný formulář
+  # The backend redirects back with #alert=thankYou after a successful upload.
+  on:
+    urlContains: "#alert=thankYou"
+  ga4: form_send
+  params:
+    Page URL: "{page_url}"
+    Referral: "{referrer}"
+  # adsConversion: <label>

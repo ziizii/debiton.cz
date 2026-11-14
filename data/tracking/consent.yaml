@@ -1,0 +1,32 @@
+# Cookie consent banner. Texts: themes/<theme>/i18n/<lang>.yaml, keys "consent.*".
+# Markup: themes/<theme>/layouts/_partials/consent-banner.html.
+# Must be enabled together with google.yaml (see the note there).
+
+enabled: false
+
+# Cookie storing the visitor's choice, and how long it is kept.
+cookie: cc-consent
+expiresDays: 182
+
+# Raise by one to ask every visitor again (e.g. after adding a new tool).
+revision: 1
+
+# Show the banner this long after the page has loaded (ms).
+showDelayMs: 500
+
+# true  = Google tags load before the visitor decides (Consent Mode "advanced"):
+#         without consent Google only gets cookieless pings.
+# false = nothing is loaded from Google until the visitor agrees.
+loadBeforeConsent: false
+
+# Categories shown in the banner settings, in this order. Each needs
+# consent.<id> and consent.<id>.text in the i18n files.
+# `google` lists the Google Consent Mode signals the category controls.
+categories:
+  - id: necessary
+    required: true
+    google: [functionality_storage, security_storage]
+  - id: analytics
+    google: [analytics_storage]
+  - id: marketing
+    google: [ad_storage, ad_user_data, ad_personalization, personalization_storage]

@@ -1,0 +1,39 @@
+{{- /* Structured data for the home page: the operator, the service and the FAQ. */ -}}
+{{- $op := site.Params.operator }}
+{{- $c := site.Params.contact }}
+{{- $home := .Permalink }}
+{{- $org := dict
+  "@type" "Organization"
+  "@id" (printf "%s#organization" $home)
+  "name" $op.name
+  "brand" (dict "@type" "Brand" "name" site.Title)
+  "url" $home
+  "email" $c.email
+  "taxID" (replace $op.ico " " "")
+  "address" (dict "@type" "PostalAddress" "streetAddress" $op.postal.street "addressLocality" $op.postal.locality "postalCode" $op.postal.postalCode "addressCountry" $op.postal.country)
+}}
+{{- with $c.phone }}{{ $org = merge $org (dict "telephone" ($c.phoneRaw | default .)) }}{{ end }}
+{{- $service := dict
+  "@type" "Service"
+  "@id" (printf "%s#service" $home)
+  "name" (.Params.hero.title | plainify | htmlUnescape)
+  "serviceType" "Debt collection"
+  "provider" (dict "@id" (printf "%s#organization" $home))
+  "areaServed" "CZ"
+  "url" $home
+}}
+{{- $faq := slice }}
+{{- range .Params.faq.items }}
+  {{- $faq = $faq | append (dict "@type" "Question" "name" (.q | plainify | htmlUnescape) "acceptedAnswer" (dict "@type" "Answer" "text" (.a | markdownify | plainify | htmlUnescape | strings.TrimSpace))) }}
+{{- end }}
+{{- $page := dict
+  "@type" (slice "WebPage" "FAQPage")
+  "@id" $home
+  "url" $home
+  "name" (.Params.seoTitle | default .Title)
+  "inLanguage" site.Language.Locale
+  "publisher" (dict "@id" (printf "%s#organization" $home))
+  "about" (dict "@id" (printf "%s#service" $home))
+  "mainEntity" $faq
+}}
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@graph" (slice $page $org $service) | jsonify | safeJS }}</script>

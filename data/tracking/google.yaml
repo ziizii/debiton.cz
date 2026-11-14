@@ -1,0 +1,24 @@
+# Google tags loaded by the site itself – no Google Tag Manager (same module as
+# www.stuchlikova.com). Events are in events.yaml, the cookie banner in
+# consent.yaml. gtag.js is requested only after the page has loaded and the
+# browser is idle, so it never slows the page down.
+#
+# OFF for now: the privacy policy (content/<lang>/ochrana-osobnich-udaju.md,
+# section 7 "Cookies") says the site uses no analytics or marketing cookies.
+# Before switching this on: set the IDs, enable consent.yaml, and have the
+# privacy policy updated. While both are disabled, nothing is rendered at all.
+
+enabled: false
+
+# GA4 measurement ID (GA → Admin → Data streams), e.g. G-XXXXXXXXXX
+ga4: ""
+
+# Google Ads account, e.g. AW-123456789 (also sets the _gcl conversion-linker cookies).
+ads: ""
+
+# Hostnames where data is really sent to Google. Anywhere else (localhost,
+# Firebase PR previews) gtag.js is not loaded and every event is printed to the
+# browser console as "[tracking] …", so changes can be tested safely.
+hosts:
+  - www.debiton.cz
+  - debiton.cz

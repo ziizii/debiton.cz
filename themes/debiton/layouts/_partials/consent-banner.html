@@ -1,0 +1,36 @@
+{{- /* Cookie consent banner, driven by js/tracking.js; config in data/tracking/consent.yaml,
+       texts in i18n "consent.*". Hidden until the script decides to show it after load. */ -}}
+{{- with .consent -}}
+{{- if .enabled -}}
+<div id="consent" role="dialog" aria-labelledby="consent-title" class="hidden fixed inset-x-4 bottom-4 z-50 mx-auto max-h-[calc(100vh-2rem)] max-w-xl overflow-y-auto rounded-2xl border border-line bg-white p-5 text-[15px] text-ink shadow-panel">
+  <div data-consent-view="main">
+    <p id="consent-title" class="mb-2 text-lg font-semibold">{{ i18n "consent.title" }}</p>
+    <p class="mb-4 text-muted">
+      {{ i18n "consent.text" }}
+      {{- with site.GetPage "/ochrana-osobnich-udaju" }} <a class="text-green-deep underline hover:no-underline" href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}
+    </p>
+    <div class="flex flex-wrap items-center justify-end gap-2">
+      <button type="button" data-consent="settings" class="me-auto cursor-pointer underline hover:no-underline">{{ i18n "consent.settings" }}</button>
+      <button type="button" data-consent="necessary" class="btn btn-ghost btn-sm">{{ i18n "consent.necessaryOnly" }}</button>
+      <button type="button" data-consent="all" class="btn btn-sm">{{ i18n "consent.acceptAll" }}</button>
+    </div>
+  </div>
+  <div data-consent-view="settings" class="hidden">
+    <p class="mb-2 text-lg font-semibold">{{ i18n "consent.settings" }}</p>
+    {{- range .categories }}
+    <label class="flex items-start gap-3 border-t border-line py-2">
+      <input type="checkbox" class="mt-1 accent-green" data-category="{{ .id }}"{{ if .required }} checked disabled{{ end }}>
+      <span>
+        <span class="block font-semibold">{{ i18n (printf "consent.%s" .id) }}{{ if .required }} <span class="font-normal text-faint">({{ i18n "consent.alwaysOn" }})</span>{{ end }}</span>
+        <span class="block text-muted">{{ i18n (printf "consent.%s.text" .id) }}</span>
+      </span>
+    </label>
+    {{- end }}
+    <div class="mt-3 flex flex-wrap justify-end gap-2">
+      <button type="button" data-consent="save" class="btn btn-ghost btn-sm">{{ i18n "consent.save" }}</button>
+      <button type="button" data-consent="all" class="btn btn-sm">{{ i18n "consent.acceptAll" }}</button>
+    </div>
+  </div>
+</div>
+{{- end -}}
+{{- end -}}

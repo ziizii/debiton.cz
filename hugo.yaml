@@ -28,9 +28,26 @@ languages:
     contentDir: content/cs
     params:
       ogLocale: cs_CZ
+      # Fallback meta description (pages normally set their own).
+      description: >-
+        Debiton – vymáhání pohledávek z podnikání. Upomínky posílá advokátní
+        kancelář, náklady vymáhání nese dlužník.
 
 enableRobotsTXT: true
 disableKinds: [taxonomy, term, rss]
+# Real per-page <lastmod> in the sitemap (CI checks out the full history).
+enableGitInfo: true
+
+# /llms.txt – plain-text summary of the site for AI assistants.
+outputFormats:
+  llms:
+    mediaType: text/plain
+    baseName: llms
+    isPlainText: true
+    root: true
+    notAlternative: true
+outputs:
+  home: [html, llms]
 
 markup:
   goldmark:
@@ -60,10 +77,6 @@ sitemap:
   priority: -1
 
 params:
-  description: >-
-    Akce pro prvních 50 firem: pohledávky z podnikání vymáháme za 0 % z vymožené
-    částky, i malé faktury bez minimální částky. Upomínky posílá advokátní
-    kancelář, náklady nese dlužník.
   themeColor: "#0e8050"
   ogImage: og-image.png
 
@@ -80,6 +93,11 @@ params:
     name: NewCo Czech Companies, s.r.o.
     ico: 248 43 709
     address: Hnězdenská 767/4a, Troja, 181 00 Praha 8
+    postal: # structured address for JSON-LD
+      street: Hnězdenská 767/4a
+      locality: Praha 8 – Troja
+      postalCode: "181 00"
+      country: CZ
     register: zapsaná v obchodním rejstříku vedeném Městským soudem v Praze, sp. zn. C 179593
 
   # Enquiry form backend: the existing Cloud Function of stuchlikova.com

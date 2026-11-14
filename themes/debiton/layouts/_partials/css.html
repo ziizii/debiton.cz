@@ -4,7 +4,7 @@
     {{- if hugo.IsDevelopment }}
 <link rel="stylesheet" href="{{ .RelPermalink }}">
     {{- else }}
-<style>{{ .Content | safeCSS }}</style>
+<style data-purge>{{ .Content | safeCSS }}</style>
     {{- end }}
   {{- end }}
 {{- end }}

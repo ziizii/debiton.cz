@@ -1,0 +1,21 @@
+{{- /* /llms.txt: plain-text summary for AI assistants, built from the home page copy of every language. */ -}}
+# {{ site.Title }}
+
+{{ range .AllTranslations -}}
+## {{ .Language.Label }} – {{ .Permalink }}
+
+> {{ .Params.description | plainify | htmlUnescape }}
+
+{{ with .Params.how }}{{ .title | plainify | htmlUnescape }}: {{ .text | plainify | htmlUnescape }}
+{{ range .items }}- {{ .title | plainify | htmlUnescape }}: {{ .text | plainify | htmlUnescape }}
+{{ end }}{{ end }}
+{{ with .Params.pricing }}{{ .title | plainify | htmlUnescape }}: {{ .text | plainify | htmlUnescape }}
+{{ range .scenarios.rows }}- {{ .situation | plainify | htmlUnescape }}: {{ .price | plainify | htmlUnescape }}{{ with .note }} ({{ . | plainify | htmlUnescape }}){{ end }}
+{{ end }}{{ end }}
+{{ with .Params.faq }}{{ .title | plainify | htmlUnescape }}:
+{{ range .items }}- {{ .q | plainify | htmlUnescape }} {{ .a | markdownify | plainify | htmlUnescape | replaceRE `\s+` " " | strings.TrimSpace }}
+{{ end }}{{ end }}
+{{ with site.Params.operator }}Provozovatel: {{ .name }}, IČO {{ .ico }}, {{ .address }}{{ end }}
+Kontakt: {{ site.Params.contact.email }}{{ with site.Params.contact.phone }}, {{ . }}{{ end }}
+
+{{ end -}}
