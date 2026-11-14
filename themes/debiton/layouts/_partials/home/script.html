@@ -3,7 +3,7 @@
 {{- $calc := .Params.calculator }}
 {{- $rates := slice }}
 {{- range hugo.Data.interest_rates }}
-  {{- $rates = $rates | append (slice (time.Format "2006-01-02" .from) .rate) }}
+  {{- $rates = $rates | append (dict "from" (time.Format "2006-01-02" .from) "rate" .rate) }}
 {{- end }}
 {{- $cfg := dict
   "locale" site.Language.Locale

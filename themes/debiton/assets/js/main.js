@@ -50,8 +50,9 @@
   /* late-payment interest calculator */
   var rowsEl = $('rows'), rowTpl = $('rowTpl'), rowSeq = 0;
   function rateFor(delayStart) {
-    var r = CFG.rates[0][1];
-    for (var i = 0; i < CFG.rates.length; i++) { if (delayStart >= new Date(CFG.rates[i][0] + 'T00:00:00')) r = CFG.rates[i][1]; }
+    // CFG.rates: [{from: 'YYYY-MM-DD', rate: % p.a.}, …] from data/interest_rates.yaml, oldest first
+    var r = CFG.rates[0].rate;
+    for (var i = 0; i < CFG.rates.length; i++) { if (delayStart >= new Date(CFG.rates[i].from + 'T00:00:00')) r = CFG.rates[i].rate; }
     return r;
   }
   function addRow(amount, due) {
@@ -122,13 +123,21 @@
   var store = (typeof DataTransfer === 'function') ? new DataTransfer() : null;
 
   // Back from the backend: #alert=thankYou / #alert=submitError
+  // Jump (not smooth-scroll) once the page has loaded: a smooth scroll started
+  // during load can be cancelled by the browser and leave the visitor at the top.
+  function jumpTo(el, block) {
+    var go = function () { el.scrollIntoView({ block: block, behavior: 'instant' }); };
+    if (document.readyState === 'complete') setTimeout(go, 0);
+    else window.addEventListener('load', function () { setTimeout(go, 0); }, { once: true });
+  }
   var hash = location.hash || '';
   if (hash.indexOf('alert=thankYou') > -1) {
     form.hidden = true; thanks.hidden = false;
-    setTimeout(function () { thanks.scrollIntoView({ block: 'center' }); thanks.focus({ preventScroll: true }); }, 50);
+    thanks.focus({ preventScroll: true });
+    jumpTo(thanks, 'center');
   } else if (hash.indexOf('alert=submitError') > -1) {
     submitError.hidden = false;
-    setTimeout(function () { form.scrollIntoView({ block: 'start' }); }, 50);
+    jumpTo(form, 'start');
   }
 
   function fmtSize(b) {

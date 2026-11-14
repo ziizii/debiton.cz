@@ -24,7 +24,7 @@
       </div>
 
       {{- /* Posts to the stuchlikova.com Cloud Function (action debtrecovery), see hugo.yaml params.form. */}}
-      <form id="debtForm" class="rounded-[18px] border border-line bg-white p-[clamp(22px,4vw,38px)] shadow-panel" method="post" action="{{ site.Params.form.action }}" enctype="multipart/form-data" novalidate>
+      <form id="debtForm" class="scroll-mt-[calc(var(--spacing-header)+16px)] rounded-[18px] border border-line bg-white p-[clamp(22px,4vw,38px)] shadow-panel" method="post" action="{{ site.Params.form.action }}" enctype="multipart/form-data" novalidate>
         {{- $err := replace $f.submitError "{email}" $emailLink }}
         {{- with $c.phone }}{{ $err = printf "%s%s" $err (replace $f.submitErrorPhone "{phone}" (partial "phone-link.html" (dict "class" "font-semibold text-inherit"))) }}{{ end }}
         <div id="submitError" class="mb-4 text-[15px] text-red" role="alert" hidden>{{ $err | safeHTML }}.</div>

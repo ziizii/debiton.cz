@@ -53,6 +53,8 @@ markup:
   goldmark:
     renderer:
       unsafe: true # raw HTML (e.g. &nbsp;) in content is intentional
+    extensions:
+      linkify: false # don't turn plain "www.debiton.cz" into links
 
 # Tailwind CSS v4 (css.TailwindCSS) scans the build stats Hugo writes.
 build:
