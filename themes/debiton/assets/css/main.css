@@ -57,7 +57,9 @@
     -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
   }
   h1, h2, h3 { font-weight: 600; letter-spacing: -.022em; line-height: 1.12; text-wrap: balance; }
-  section[id] { scroll-margin-top: calc(var(--spacing-header) + 12px); }
+  /* Anchor jumps stop exactly under the sticky header (72px + 1px border);
+     sections have their own top padding, any extra margin shows as a gap. */
+  section[id] { scroll-margin-top: calc(var(--spacing-header) + 1px); }
   :focus-visible { outline: 3px solid #9fd8b7; outline-offset: 2px; }
   [hidden] { display: none !important; }
   ::placeholder { color: #9aa1a6; }
