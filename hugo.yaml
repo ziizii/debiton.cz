@@ -89,6 +89,11 @@ params:
     email: info@debiton.cz
     phone: "+420 776 617 711"  # display form
     phoneRaw: "+420776617711"  # tel: link form
+    # Contact (postal) address shown in the Kontakt section, one line per item.
+    # Not the operator's registered seat (params.operator), which stays in the footer.
+    address:
+      - Vlašská 363/4
+      - 118 00 Praha 1 – Malá Strana
 
   operator:
     name: NewCo Czech Companies, s.r.o.

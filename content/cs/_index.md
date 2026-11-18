@@ -326,6 +326,7 @@ contact:
     nebo vyplňte formulář. Ozveme se nejpozději do 1&nbsp;pracovního dne.
   emailLabel: E-mail
   phoneLabel: Telefon
+  addressLabel: Kontaktní adresa
   operatorLabel: Provozovatel
   # Prefix of the message in the notification e-mail, so contact questions can be
   # told apart from invoice uploads (both use the Debiton form backend).
