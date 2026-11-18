@@ -30,6 +30,15 @@
           </div>
         </div>
         {{- end }}
+        {{- with $c.address }}
+        <div class="flex items-center gap-4 rounded-[14px] border border-line bg-white px-5 py-4">
+          <span class="flex size-11 shrink-0 items-center justify-center rounded-full bg-mint-2 text-green-deep [&>svg]:size-6">{{ partial "icon.html" "pin" }}</span>
+          <div class="min-w-0">
+            <dt class="text-sm text-muted">{{ $ct.addressLabel }}</dt>
+            <dd class="text-[17px] leading-snug font-semibold text-ink">{{ delimit (apply . "replaceRE" `(\d{3}) (\d{2})` "$1&nbsp;$2" ".") "<br>" | safeHTML }}</dd>
+          </div>
+        </div>
+        {{- end }}
       </dl>
       <p class="mt-6 text-[15px] leading-[1.6] text-muted"><span class="font-semibold text-ink">{{ $ct.operatorLabel }}:</span> {{ $op.name }}, IČO {{ $op.ico | replaceRE " " "&nbsp;" | safeHTML }}, {{ $op.address | replaceRE `(\d{3}) (\d{2})` "$1&nbsp;$2" | replaceRE ` (\d+)$` "&nbsp;$1" | safeHTML }}</p>
     </div>
