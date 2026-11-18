@@ -20,6 +20,7 @@ nav:
   - { label: Cena, href: "#cena" }
   - { label: Kalkulačka, href: "#kalkulacka" }
   - { label: Otázky, href: "#otazky" }
+  - { label: Kontakt, href: "#kontakt" }
 headerCta: { label: Nahrát fakturu, href: "#formular" }
 skipLink: Přeskočit na formulář
 mobileCta: Nahrát dlužnou fakturu
@@ -317,6 +318,37 @@ faq:
     - q: Kdo za službou Debiton stojí?
       a: Službu Debiton provozuje společnost NewCo Czech Companies, s.r.o. Upomínky, předžalobní výzvy, návrhy na vydání platebního rozkazu i&nbsp;přihlášky do insolvence posílá a&nbsp;podává jménem Vaší firmy spolupracující advokátní kancelář.
 
+contact:
+  id: kontakt
+  title: Kontakt
+  lead: >-
+    Máte dotaz ke službě nebo ke konkrétní pohledávce? Napište nám, zavolejte,
+    nebo vyplňte formulář. Ozveme se nejpozději do 1&nbsp;pracovního dne.
+  emailLabel: E-mail
+  phoneLabel: Telefon
+  operatorLabel: Provozovatel
+  # Prefix of the message in the notification e-mail, so contact questions can be
+  # told apart from invoice uploads (both use the Debiton form backend).
+  tag: "[Dotaz z kontaktního formuláře Debiton]"
+  namePrefix: "Jméno: "
+  nameLabel: Jméno a firma
+  namePlaceholder: Jan Novák, Firma s.r.o.
+  contactLegend: Kontakt na Vás
+  contactHint: Stačí e-mail, nebo telefon
+  yourEmailLabel: Váš e-mail
+  yourPhoneLabel: Vaše telefonní číslo
+  messageLabel: Zpráva
+  messagePlaceholder: S čím Vám můžeme pomoci?
+  submit: Odeslat zprávu
+  thanksTitle: Zpráva odeslána
+  thanksText: Děkujeme, ozveme se Vám nejpozději do <strong>1&nbsp;pracovního dne</strong>.
+  # {email} and {phone} are replaced with links; the phone part is dropped while
+  # params.contact.phone is empty.
+  submitError: Zprávu se nepodařilo odeslat. Zkuste to prosím znovu, nebo nám napište na {email}
+  submitErrorPhone: ", případně volejte {phone}"
+  errors:
+    message: Napište nám prosím, s čím Vám můžeme pomoci.
+
 footer:
   tagline: Vymáhání pohledávek z&nbsp;podnikání za 0&nbsp;%. Náklady vymáhání nese dlužník.
   serviceTitle: Služba
@@ -328,6 +360,7 @@ footer:
     - { label: Časté otázky, href: "#otazky" }
   contactTitle: Kontakt
   uploadLink: { label: Nahrát dlužnou fakturu, href: "#formular" }
+  contactLink: { label: Kontaktní formulář, href: "#kontakt" }
   privacyLink: { label: Zásady zpracování osobních údajů, href: /cs/ochrana-osobnich-udaju/ }
   legalServices: Právní služby poskytuje spolupracující advokátní kancelář.
 ---

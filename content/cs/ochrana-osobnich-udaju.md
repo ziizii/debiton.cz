@@ -7,7 +7,7 @@ sitemap:
   disable: true
 ---
 
-Tyto zásady vysvětlují, jak zpracováváme osobní údaje, které nám poskytnete prostřednictvím webu www.debiton.cz, zejména formuláře pro nahrání dlužných faktur, a jaká máte práva.
+Tyto zásady vysvětlují, jak zpracováváme osobní údaje, které nám poskytnete prostřednictvím webu www.debiton.cz, zejména formuláře pro nahrání dlužných faktur a kontaktního formuláře, a jaká máte práva.
 
 ## 1. Správce osobních údajů
 
@@ -18,7 +18,7 @@ Kontakt: {{< contact >}}.
 
 ## 2. Jaké údaje zpracováváme
 
-- **Kontaktní údaje** – e-mail a/nebo telefonní číslo, které vyplníte ve formuláři, a obsah Vašeho komentáře.
+- **Kontaktní údaje** – e-mail a/nebo telefonní číslo, které vyplníte ve formuláři, a obsah Vašeho komentáře nebo zprávy; v kontaktním formuláři také jméno a název firmy, pokud je uvedete.
 - **Nahrané podklady** – faktury, smlouvy, objednávky, korespondence apod. Mohou obsahovat osobní údaje Vás, Vašich zaměstnanců a také Vašich dlužníků (např. jméno, adresu, IČO, kontaktní údaje, údaje o dlužné částce).
 - **Technické údaje** – IP adresa a údaje o prohlížeči a chování na stránce, které vyhodnocuje služba Google reCAPTCHA k ochraně formuláře před zneužitím.
 

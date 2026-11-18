@@ -6,7 +6,7 @@
       <a href="{{ .href }}">{{ .label | safeHTML }}</a>
       {{- end }}
     </nav>
-    {{ partial "phone-link.html" (dict "class" "whitespace-nowrap text-[15.5px] font-semibold text-ink no-underline hover:text-green-deep max-[640px]:hidden") }}
+    <a class="whitespace-nowrap text-[15.5px] font-semibold text-ink no-underline hover:text-green-deep max-[640px]:hidden" href="mailto:{{ site.Params.contact.email }}">{{ site.Params.contact.email }}</a>
     {{ with .Params.headerCta }}<a class="btn btn-sm max-[640px]:hidden" href="{{ .href }}">{{ .label | safeHTML }}</a>{{ end }}
     <button class="menu-btn hidden min-h-11 cursor-pointer items-center rounded-[10px] border border-line-2 bg-white px-3.5 text-[15px] font-semibold text-ink max-[1060px]:inline-flex" type="button" aria-controls="nav" aria-expanded="false" data-open="{{ i18n "menu" }}" data-close="{{ i18n "menuClose" }}">{{ i18n "menu" }}</button>
   </div>

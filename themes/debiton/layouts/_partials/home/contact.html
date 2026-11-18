@@ -1,0 +1,80 @@
+{{- /* Contact section at the bottom of the home page: e-mail, phone and a short
+       contact form. The form posts to the same Debiton backend as the enquiry
+       form (params.form.action, files optional); main.js puts the contact tag
+       and the name at the start of "Message" so the office can tell the two apart. */}}
+{{- with .Params.contact }}
+{{- $ct := . }}
+{{- $f := $.Params.form }}
+{{- $c := site.Params.contact }}
+{{- $op := site.Params.operator }}
+{{- $emailLink := printf `<a class="font-semibold text-inherit" href="mailto:%s">%s</a>` $c.email $c.email }}
+<section class="bg-mint py-[clamp(64px,9vw,112px)]" id="{{ $ct.id }}">
+  <div class="wrap grid grid-cols-[minmax(0,.85fr)_minmax(0,1.15fr)] items-start gap-16 max-[960px]:grid-cols-1 max-[960px]:gap-10">
+    <div>
+      <h2 class="h-section">{{ $ct.title | safeHTML }}</h2>
+      <p class="mt-4 max-w-[36em] text-[18.5px] text-muted">{{ $ct.lead | safeHTML }}</p>
+      <dl class="mt-8 grid gap-3">
+        <div class="flex items-center gap-4 rounded-[14px] border border-line bg-white px-5 py-4">
+          <span class="flex size-11 shrink-0 items-center justify-center rounded-full bg-mint-2 text-green-deep [&>svg]:size-6">{{ partial "icon.html" "mail" }}</span>
+          <div class="min-w-0">
+            <dt class="text-sm text-muted">{{ $ct.emailLabel }}</dt>
+            <dd><a class="text-[19px] font-semibold break-words text-ink no-underline hover:text-green-deep hover:underline" href="mailto:{{ $c.email }}">{{ $c.email }}</a></dd>
+          </div>
+        </div>
+        {{- with $c.phone }}
+        <div class="flex items-center gap-4 rounded-[14px] border border-line bg-white px-5 py-4">
+          <span class="flex size-11 shrink-0 items-center justify-center rounded-full bg-mint-2 text-green-deep [&>svg]:size-6">{{ partial "icon.html" "phone" }}</span>
+          <div class="min-w-0">
+            <dt class="text-sm text-muted">{{ $ct.phoneLabel }}</dt>
+            <dd>{{ partial "phone-link.html" (dict "class" "text-[19px] font-semibold whitespace-nowrap text-ink no-underline hover:text-green-deep hover:underline") }}</dd>
+          </div>
+        </div>
+        {{- end }}
+      </dl>
+      <p class="mt-6 text-[15px] leading-[1.6] text-muted"><span class="font-semibold text-ink">{{ $ct.operatorLabel }}:</span> {{ $op.name }}, IČO {{ $op.ico | replaceRE " " "&nbsp;" | safeHTML }}, {{ $op.address | replaceRE `(\d{3}) (\d{2})` "$1&nbsp;$2" | replaceRE ` (\d+)$` "&nbsp;$1" | safeHTML }}</p>
+    </div>
+
+    <div>
+      <div id="contactThanks" class="rounded-[18px] border border-line bg-white px-7 py-[clamp(36px,5vw,56px)] text-center shadow-panel" hidden tabindex="-1">
+        <div class="mx-auto mb-[22px] flex size-16 items-center justify-center rounded-full bg-green text-white" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 20 20"><path d="M5 10.4l3.2 3.2 6.6-7" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3 class="mb-2.5 text-[26px]">{{ $ct.thanksTitle }}</h3>
+        <p class="mx-auto max-w-[400px] text-[17px] text-muted">{{ $ct.thanksText | safeHTML }}</p>
+      </div>
+
+      <form id="contactForm" class="scroll-mt-[calc(var(--spacing-header)+16px)] rounded-[18px] border border-line bg-white p-[clamp(22px,4vw,38px)] shadow-panel" method="post" action="{{ site.Params.form.action }}" enctype="multipart/form-data" novalidate>
+        {{- $err := replace $ct.submitError "{email}" $emailLink }}
+        {{- with $c.phone }}{{ $err = printf "%s%s" $err (replace $ct.submitErrorPhone "{phone}" (partial "phone-link.html" (dict "class" "font-semibold text-inherit"))) }}{{ end }}
+        <div id="ctSubmitError" class="mb-4 text-[15px] text-red" role="alert" hidden>{{ $err | safeHTML }}.</div>
+
+        <label class="mb-2 block text-[15px] font-semibold" for="ctName">{{ $ct.nameLabel }} <span class="font-normal text-faint">{{ $f.optional }}</span></label>
+        <input class="field" id="ctName" type="text" autocomplete="name" placeholder="{{ $ct.namePlaceholder }}">
+
+        <fieldset class="mt-[18px]">
+          <legend class="mb-2.5 flex w-full flex-wrap justify-between gap-x-3 gap-y-1 text-[15px] font-semibold">{{ $ct.contactLegend }} <span class="text-sm font-normal text-faint">{{ $ct.contactHint }} <b class="text-red" aria-hidden="true">*</b></span></legend>
+          <div class="grid grid-cols-2 gap-3 max-[520px]:grid-cols-1">
+            <div><label class="mb-[5px] block text-sm text-muted" for="ctEmail">{{ $ct.yourEmailLabel }}</label><input class="field" id="ctEmail" name="Email" type="email" autocomplete="email" inputmode="email" placeholder="{{ $f.emailPlaceholder }}"></div>
+            <div><label class="mb-[5px] block text-sm text-muted" for="ctPhone">{{ $ct.yourPhoneLabel }}</label><input class="field" id="ctPhone" name="Phone" type="tel" autocomplete="tel" placeholder="{{ $f.phonePlaceholder }}"></div>
+          </div>
+        </fieldset>
+
+        <label class="mt-[18px] mb-2 block text-[15px] font-semibold" for="ctMessage">{{ $ct.messageLabel }} <b class="text-red" aria-hidden="true">*</b></label>
+        <textarea class="field" id="ctMessage" rows="5" required placeholder="{{ $ct.messagePlaceholder }}"></textarea>
+        <input type="hidden" name="Message" id="ctMessageOut">
+
+        <div id="ctClientError" class="mt-3.5 text-[15px] text-red" role="alert" hidden></div>
+
+        <input type="hidden" name="Language" value="{{ site.Language.Lang }}">
+        <input type="hidden" name="_next" id="ctNextOk" value="{{ $.Permalink }}#alert=contactThankYou">
+        <input type="hidden" name="_next_error" id="ctNextErr" value="{{ $.Permalink }}#alert=contactError">
+        <input type="hidden" name="_recaptcha_response" value="">
+
+        <button id="ctSubmit" class="btn btn-lg mt-6 w-full disabled:cursor-progress disabled:opacity-85" type="submit">
+          <span id="ctSpinner" class="spin" hidden aria-hidden="true"></span>
+          <span id="ctSubmitLabel">{{ $ct.submit | safeHTML }}</span>
+        </button>
+        <p class="mt-3.5 text-center text-[12.5px] leading-normal text-faint [&_a]:text-muted [&_a]:underline">{{ $f.legal | safeHTML }}</p>
+      </form>
+    </div>
+  </div>
+</section>
+{{- end }}

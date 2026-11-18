@@ -1,6 +1,7 @@
 {{- /* Settings and translated strings for assets/js/main.js. */}}
 {{- $f := .Params.form }}
 {{- $calc := .Params.calculator }}
+{{- $ct := .Params.contact | default dict }}
 {{- $rates := slice }}
 {{- range hugo.Data.interest_rates }}
   {{- $rates = $rates | append (dict "from" (time.Format "2006-01-02" .from) "rate" .rate) }}
@@ -19,7 +20,10 @@
     "warnNotDue" $calc.warnNotDue "warnOld" $calc.warnOld
     "feeCount" ($calc.feeCount | default "") "invoiceWords" ($calc.invoiceWords | default dict)
     "messagePrefix" $calc.messagePrefix "dueWord" $calc.dueWord
-    "menu" (i18n "menu") "menuClose" (i18n "menuClose"))
+    "menu" (i18n "menu") "menuClose" (i18n "menuClose")
+    "contactMessage" ($ct.errors.message | default "")
+    "contactTag" ($ct.tag | default site.Params.form.sourceTag)
+    "contactNamePrefix" ($ct.namePrefix | default ""))
 }}
 <script id="debiton-config" type="application/json">{{ $cfg | jsonify | safeJS }}</script>
 {{- with resources.Get "js/main.js" | js.Build (dict "minify" (not hugo.IsDevelopment) "target" "es2017") }}

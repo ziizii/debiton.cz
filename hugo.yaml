@@ -83,13 +83,12 @@ params:
   ogImage: og-image.png
 
   # Contact details shown across the site.
-  # phone: leave empty until the new T-Mobile line exists. While it is empty,
-  # every phone link and "call us" sentence is hidden instead of showing a
-  # placeholder. Fill in both values, then redeploy.
+  # phone: while it is empty, every phone link and "call us" sentence is
+  # hidden instead of showing a placeholder. Fill in both values, then redeploy.
   contact:
     email: info@debiton.cz
-    phone: ""     # display form, e.g. "+420 777 123 456"
-    phoneRaw: ""  # tel: link form, e.g. "+420777123456"
+    phone: "+420 776 617 711"  # display form
+    phoneRaw: "+420776617711"  # tel: link form
 
   operator:
     name: NewCo Czech Companies, s.r.o.

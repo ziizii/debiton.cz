@@ -1,5 +1,5 @@
 // Debiton home page: mobile menu, sticky CTA, "paid" stamp, interest
-// calculator and the enquiry form. Settings and translated strings come from
+// calculator, the enquiry form and the contact form. Settings and translated strings come from
 // <script id="debiton-config"> (layouts/_partials/home/script.html).
 (function () {
   'use strict';
@@ -34,17 +34,19 @@
     nav.addEventListener('click', function (e) { if (e.target.tagName === 'A' && nav.classList.contains('open')) setMenu(false); });
   }
 
-  /* floating CTA on mobile: after the hero, but not over the form or footer */
+  /* floating CTA on mobile: after the hero, but not over the forms or footer */
   var mcta = $('mcta'), formSection = $('debtForm') && $('debtForm').closest('section');
+  var contactSection = $('contactForm') && $('contactForm').closest('section');
   if (mcta && formSection && 'IntersectionObserver' in window) {
     var heroGone = false, hide = {};
-    var upd = function () { mcta.classList.toggle('on', heroGone && !hide.form && !hide.foot); };
+    var upd = function () { mcta.classList.toggle('on', heroGone && !hide.form && !hide.contact && !hide.foot); };
     new IntersectionObserver(function (es) { heroGone = !es[0].isIntersecting; upd(); }).observe(document.querySelector('.ctas'));
     var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { hide[e.target === formSection ? 'form' : 'foot'] = e.isIntersecting; });
+      es.forEach(function (e) { hide[e.target === formSection ? 'form' : e.target === contactSection ? 'contact' : 'foot'] = e.isIntersecting; });
       upd();
     });
     io.observe(formSection); io.observe($('foot'));
+    if (contactSection) io.observe(contactSection);
   }
 
   /* late-payment interest calculator */
@@ -115,14 +117,9 @@
     });
   }
 
-  /* enquiry form */
-  var form = $('debtForm');
-  if (!form) return;
-  var thanks = $('thankYou'), submitError = $('submitError');
-  var input = $('files'), drop = $('drop'), chips = $('chips'), chipTpl = $('chipTpl'), clientError = $('clientError');
-  var store = (typeof DataTransfer === 'function') ? new DataTransfer() : null;
-
-  // Back from the backend: #alert=thankYou / #alert=submitError
+  /* shared by both forms */
+  var hash = location.hash || '';
+  // Back from the backend: #alert=… (see the hidden _next / _next_error fields).
   // Jump (not smooth-scroll) once the page has loaded: a smooth scroll started
   // during load can be cancelled by the browser and leave the visitor at the top.
   function jumpTo(el, block) {
@@ -130,7 +127,93 @@
     if (document.readyState === 'complete') setTimeout(go, 0);
     else window.addEventListener('load', function () { setTimeout(go, 0); }, { once: true });
   }
-  var hash = location.hash || '';
+
+  // reCAPTCHA v3 is loaded only when a form is first used
+  var recaptcha = null;
+  function loadRecaptcha() {
+    if (!recaptcha) {
+      recaptcha = new Promise(function (resolve, reject) {
+        var s = document.createElement('script');
+        s.src = 'https://www.google.com/recaptcha/api.js?render=' + CFG.siteKey;
+        s.async = true;
+        s.onload = function () { window.grecaptcha.ready(resolve); };
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+      recaptcha.catch(function () {}); // blocked: each submit falls back to a plain POST
+    }
+    return recaptcha;
+  }
+
+  // Either a valid e-mail or a phone number (the backend requires one of them).
+  // Returns an error message, or '' when the contact is fine.
+  function contactError(email, phone) {
+    if (!email && !phone) return MSG.contact;
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return MSG.email;
+    if (phone && phone.replace(/\D/g, '').length < 6) return MSG.phone;
+    return '';
+  }
+
+  // Post the form for real once the reCAPTCHA token is in (or reCAPTCHA failed:
+  // then the server decides).
+  function submitWithRecaptcha(f) {
+    var go = function () { HTMLFormElement.prototype.submit.call(f); };
+    loadRecaptcha().then(function () {
+      return window.grecaptcha.execute(CFG.siteKey, { action: 'sendForm' });
+    }).then(function (token) {
+      f.querySelector('input[name=_recaptcha_response]').value = token;
+      go();
+    }).catch(go);
+  }
+
+  // Return to the page the form was sent from (also on previews and "/")
+  function setReturn(okEl, errEl, ok, err) {
+    if (!/^https?:/.test(location.protocol)) return;
+    var base = location.origin + location.pathname;
+    okEl.value = base + '#alert=' + ok;
+    errEl.value = base + '#alert=' + err;
+  }
+
+  /* contact form (bottom of the page): same backend as the enquiry form, no files */
+  var cForm = $('contactForm');
+  if (cForm) {
+    var cThanks = $('contactThanks'), cSubmitError = $('ctSubmitError'), cClientError = $('ctClientError');
+    if (hash.indexOf('alert=contactThankYou') > -1) {
+      cForm.hidden = true; cThanks.hidden = false;
+      cThanks.focus({ preventScroll: true });
+      jumpTo(cThanks, 'center');
+    } else if (hash.indexOf('alert=contactError') > -1) {
+      cSubmitError.hidden = false;
+      jumpTo(cForm, 'start');
+    }
+    cForm.addEventListener('focusin', loadRecaptcha, { once: true });
+    var cSending = false;
+    cForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (cSending) return;
+      cSubmitError.hidden = true;
+      var name = $('ctName').value.trim(), text = $('ctMessage').value.trim();
+      var err = contactError($('ctEmail').value.trim(), $('ctPhone').value.trim()) || (text ? '' : MSG.contactMessage);
+      if (err) { cClientError.textContent = err; cClientError.hidden = false; return; }
+      cClientError.hidden = true;
+      // The backend only knows "Message": tag and name go into its text
+      $('ctMessageOut').value = MSG.contactTag + (name ? '\n' + MSG.contactNamePrefix + name : '') + '\n\n' + text;
+      setReturn($('ctNextOk'), $('ctNextErr'), 'contactThankYou', 'contactError');
+      cSending = true;
+      $('ctSubmit').disabled = true;
+      $('ctSpinner').hidden = false;
+      $('ctSubmitLabel').textContent = MSG.sending;
+      submitWithRecaptcha(cForm);
+    });
+  }
+
+  /* enquiry form */
+  var form = $('debtForm');
+  if (!form) return;
+  var thanks = $('thankYou'), submitError = $('submitError');
+  var input = $('files'), drop = $('drop'), chips = $('chips'), chipTpl = $('chipTpl'), clientError = $('clientError');
+  var store = (typeof DataTransfer === 'function') ? new DataTransfer() : null;
+
   if (hash.indexOf('alert=thankYou') > -1) {
     form.hidden = true; thanks.hidden = false;
     thanks.focus({ preventScroll: true });
@@ -181,21 +264,6 @@
   ['dragleave', 'drop'].forEach(function (ev) { drop.addEventListener(ev, function () { drop.classList.remove('over'); }); });
   drop.addEventListener('drop', function (e) { e.preventDefault(); if (e.dataTransfer) addFiles(e.dataTransfer.files); });
 
-  // reCAPTCHA v3 is loaded only when the form is first used
-  var recaptcha = null;
-  function loadRecaptcha() {
-    if (!recaptcha) {
-      recaptcha = new Promise(function (resolve, reject) {
-        var s = document.createElement('script');
-        s.src = 'https://www.google.com/recaptcha/api.js?render=' + CFG.siteKey;
-        s.async = true;
-        s.onload = function () { window.grecaptcha.ready(resolve); };
-        s.onerror = reject;
-        document.head.appendChild(s);
-      });
-    }
-    return recaptcha;
-  }
   form.addEventListener('focusin', loadRecaptcha, { once: true });
 
   function showError(msg) { clientError.textContent = msg; clientError.hidden = false; }
@@ -206,12 +274,8 @@
     if (sending) return;
     submitError.hidden = true;
 
-    var email = $('email').value.trim(), phone = $('phone').value.trim();
-    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    var phoneOk = phone.replace(/\D/g, '').length >= 6;
-    if (!email && !phone) return showError(MSG.contact);
-    if (email && !emailOk) return showError(MSG.email);
-    if (phone && !phoneOk) return showError(MSG.phone);
+    var cErr = contactError($('email').value.trim(), $('phone').value.trim());
+    if (cErr) return showError(cErr);
     if (totalSize() > CFG.maxTotal) return showError(MSG.size);
     clientError.hidden = true;
 
@@ -219,12 +283,7 @@
     var comment = $('message').value.trim(), company = $('company').value.trim();
     $('messageOut').value = CFG.sourceTag + (company ? '\n' + CFG.companyPrefix + company : '') + (comment ? '\n\n' + comment : '');
 
-    // Return to the page the form was sent from (also on previews and "/")
-    if (/^https?:/.test(location.protocol)) {
-      var base = location.origin + location.pathname;
-      $('nextOk').value = base + '#alert=thankYou';
-      $('nextErr').value = base + '#alert=submitError';
-    }
+    setReturn($('nextOk'), $('nextErr'), 'thankYou', 'submitError');
 
     sending = true;
     $('submit').disabled = true;
@@ -232,12 +291,6 @@
     $('submitLabel').textContent = MSG.sending;
     $('sendingNote').hidden = false;
 
-    var go = function () { HTMLFormElement.prototype.submit.call(form); };
-    loadRecaptcha().then(function () {
-      return window.grecaptcha.execute(CFG.siteKey, { action: 'sendForm' });
-    }).then(function (token) {
-      form.querySelector('input[name=_recaptcha_response]').value = token;
-      go();
-    }).catch(go); // reCAPTCHA blocked: let the server decide
+    submitWithRecaptcha(form);
   });
 })();
