@@ -110,3 +110,10 @@ The backend redirects back with `#alert=contactThankYou` / `#alert=contactError`
 www.stuchlikova.com). It is **switched off**, and while it is off nothing is rendered. The privacy policy
 currently says the site uses no analytics or marketing cookies. Before enabling it, fill in the IDs in
 `google.yaml`, enable `consent.yaml`, and have the privacy policy (section 7) updated.
+
+## E-mail signature images
+
+`static/email/` holds the images used in the Debiton e-mail signature (Gmail, account
+klaudie.andronikova@debiton.cz): the wordmark logo `debiton-logo.png` (shown at 156×44) and the round
+icons `linkedin.png` and `web.png` (shown at 40×40). The signature loads them from
+`https://www.debiton.cz/email/…`, so **do not rename or delete them**.
