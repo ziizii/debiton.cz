@@ -114,6 +114,6 @@ currently says the site uses no analytics or marketing cookies. Before enabling 
 ## E-mail signature images
 
 `static/email/` holds the images used in the Debiton e-mail signature (Gmail, account
-klaudie.andronikova@debiton.cz): the wordmark logo `debiton-logo.png` (shown at 156×44) and the round
+klaudie.andronikova@debiton.cz): the wordmark logo `debiton-logo-2.png` with the line "Vymáhání pohledávek za 0 % – časově omezená nabídka" (shown at 302×44; the older `debiton-logo.png`, 156×44, stays for e-mails already sent) and the round
 icons `linkedin.png` and `web.png` (shown at 40×40). The signature loads them from
 `https://www.debiton.cz/email/…`, so **do not rename or delete them**.
