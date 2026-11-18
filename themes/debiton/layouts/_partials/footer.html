@@ -25,6 +25,7 @@
           <li><a href="mailto:{{ $c.email }}">{{ $c.email }}</a></li>
           {{- with $c.phone }}<li>{{ partial "phone-link.html" dict }}</li>{{ end }}
           {{- with $f.uploadLink }}<li><a href="{{ $base }}{{ .href }}">{{ .label | safeHTML }}</a></li>{{ end }}
+          {{- with $f.contactLink }}<li><a href="{{ $base }}{{ .href }}">{{ .label | safeHTML }}</a></li>{{ end }}
           {{- with $f.privacyLink }}<li><a href="{{ .href }}">{{ .label | safeHTML }}</a></li>{{ end }}
           {{- if hugo.Data.tracking.consent.enabled }}<li><a href="#" data-consent="settings">{{ i18n "consent.settingsLink" }}</a></li>{{ end }}
         </ul>

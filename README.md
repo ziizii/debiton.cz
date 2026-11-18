@@ -95,6 +95,15 @@ function and setup as on www.stuchlikova.com.
 - The reCAPTCHA v3 site key is shared with stuchlikova.com. **Every domain the form runs on must be on the key's allowed domains** (`debiton.cz`, `www.debiton.cz`, and `debiton-cz.web.app` for testing), otherwise reCAPTCHA reports "Invalid domain for site key" and the backend rejects the submission.
 - reCAPTCHA loads only when the form is first used.
 
+## Contact form
+
+The **Kontakt** section at the bottom of the home page (`content/cs/_index.md` → `contact`,
+partial `home/contact.html`) shows the email, the phone and a short contact form. The form posts to the
+same `/form?_action=debiton` as the enquiry form, just without files, so it needs no backend change.
+JS puts `[Dotaz z kontaktního formuláře Debiton]` and the name at the start of the comment, which is how
+the office tells a question from an invoice upload (the email subject is the same, `Debiton – nová poptávka`).
+The backend redirects back with `#alert=contactThankYou` / `#alert=contactError`.
+
 ## Analytics and cookies
 
 `data/tracking/` holds a Google-Tag-Manager-free GA4/Ads + cookie-consent module (the same as on
