@@ -3,13 +3,13 @@
 # theme can render it. Strings may contain inline HTML (&nbsp;, <strong>).
 # Phone numbers and e-mail come from hugo.yaml → params.contact.
 # Translations: copy this file to content/<lang>/_index.md and translate.
-title: Debiton – vymáhání pohledávek z podnikání za 0 %
+title: Debiton – vymáhání pohledávek mezi podnikateli za 0 %
 description: >-
-  Akce pro prvních 50 firem: pohledávky z podnikání vymáháme za 0 % z vymožené
+  Akce pro prvních 50 firem: pohledávky mezi podnikateli vymáháme za 0 % z vymožené
   částky, i malé faktury bez minimální částky. Upomínky posílá advokátní
   kancelář, náklady nese dlužník.
 og:
-  title: Debiton – vymáhání pohledávek z podnikání za 0 %
+  title: Debiton – vymáhání pohledávek mezi podnikateli za 0 %
   description: >-
     Akce pro prvních 50 firem. Náklady vymáhání nese dlužník, Vám pošleme celou
     dlužnou částku. I malé faktury, bez minimální částky.
@@ -27,9 +27,9 @@ mobileCta: Nahrát dlužnou fakturu
 
 hero:
   badge: Akce pro prvních 50&nbsp;firem
-  title: Vymáhání pohledávek z&nbsp;podnikání za&nbsp;0&nbsp;%
+  title: Vymáhání pohledávek mezi podnikateli za&nbsp;0&nbsp;%
   text: >-
-    Dluží Vám odběratel za fakturu? Pohledávky z&nbsp;podnikání teď vymáháme za
+    Dluží Vám odběratel za fakturu? Pohledávky mezi podnikateli teď vymáháme za
     0&nbsp;% z&nbsp;vymožené částky. Veškeré náklady vymáhání nese dlužník, Vám
     pošleme celou dlužnou částku.
   ctas:
@@ -57,7 +57,7 @@ hero:
       Příklad. 1&nbsp;200&nbsp;Kč a&nbsp;úroky z&nbsp;prodlení platí dlužník.
       Tyto částky si ponecháváme jako naši odměnu.
   facts:
-    - { value: 0&nbsp;%, text: z&nbsp;vymožené částky u&nbsp;pohledávek z&nbsp;podnikání }
+    - { value: 0&nbsp;%, text: z&nbsp;vymožené částky u&nbsp;pohledávek mezi podnikateli }
     - { value: 1&nbsp;200&nbsp;Kč, text: za každou fakturu platí dlužník podle nařízení vlády č.&nbsp;351/2013&nbsp;Sb. }
     - { value: 7&nbsp;dní, text: má dlužník na zaplacení po upomínce i&nbsp;po předžalobní výzvě }
     - { value: 7&nbsp;900&nbsp;Kč, text: "plus DPH obvykle za platební rozkaz, jen s&nbsp;Vaším souhlasem" }
@@ -116,7 +116,7 @@ how:
   text: U&nbsp;pohledávek mezi podnikateli nese náklady vymáhání ze zákona dlužník. Proto Vás vymáhání nic nestojí.
   items:
     - icon: percent
-      title: Pohledávky z&nbsp;podnikání za 0&nbsp;%
+      title: Pohledávky mezi podnikateli za 0&nbsp;%
       text: U&nbsp;pohledávek mezi podnikateli je naše odměna v&nbsp;rámci akce <strong>0&nbsp;% z&nbsp;vymožené částky</strong>. Veškeré náklady vymáhání nese dlužník.
     - icon: search
       title: Úvodní posouzení zdarma
@@ -137,7 +137,7 @@ steps:
     - title: Zdarma posoudíme případ
       text: Obratem Vám navrhneme nejlepší řešení a&nbsp;pošleme plnou moc pro advokátní kancelář. Podepsat ji můžete i&nbsp;elektronicky.
     - title: Pohledávku vymůžeme
-      text: U&nbsp;pohledávek z&nbsp;podnikání platíte 0&nbsp;% z&nbsp;vymožené částky, náklady vymáhání nese dlužník. U&nbsp;ostatních pohledávek je naše odměna typicky 10&nbsp;% z&nbsp;vymožené částky.
+      text: U&nbsp;pohledávek mezi podnikateli platíte 0&nbsp;% z&nbsp;vymožené částky, náklady vymáhání nese dlužník. U&nbsp;ostatních pohledávek je naše odměna typicky 10&nbsp;% z&nbsp;vymožené částky.
 
 timeline:
   id: postup
@@ -194,9 +194,9 @@ letter:
 pricing:
   id: cena
   title: Kolik zaplatíte
-  text: U&nbsp;pohledávek z&nbsp;podnikání nic. Naši odměnu tvoří náklady spojené s&nbsp;uplatněním pohledávky 1&nbsp;200&nbsp;Kč za fakturu a&nbsp;úroky z&nbsp;prodlení, a&nbsp;ty platí dlužník.
+  text: U&nbsp;pohledávek mezi podnikateli nic. Naši odměnu tvoří náklady spojené s&nbsp;uplatněním pohledávky 1&nbsp;200&nbsp;Kč za fakturu a&nbsp;úroky z&nbsp;prodlení, a&nbsp;ty platí dlužník.
   card:
-    label: Vymáhání pohledávky z&nbsp;podnikání
+    label: Vymáhání pohledávky mezi podnikateli
     price: 0&nbsp;Kč
     note: a 0&nbsp;% z&nbsp;vymožené částky v&nbsp;rámci akce pro prvních 50&nbsp;firem
     ticks:
@@ -280,7 +280,9 @@ faq:
   helpNoPhone: Nenašli jste odpověď? Napište nám.
   # Answers are Markdown.
   items:
-    - q: Jak je možné, že u&nbsp;pohledávek z&nbsp;podnikání nic neplatíte?
+    - q: Pro jaké pohledávky je služba určena?
+      a: Pro neuhrazené faktury mezi podnikateli (firmami i&nbsp;živnostníky) v&nbsp;České republice. Pohledávky za spotřebiteli a&nbsp;dlužníky v&nbsp;zahraničí vymáháme za individuální cenu, kterou znáte předem.
+    - q: Jak je možné, že u&nbsp;pohledávek mezi podnikateli nic neplatíte?
       a: Naši odměnu nese dlužník. Účtujeme mu náklady spojené s&nbsp;uplatněním pohledávky ve výši 1&nbsp;200&nbsp;Kč za každou fakturu a&nbsp;úroky z&nbsp;prodlení. Tyto částky si ponecháváme jako svou odměnu, Vám zašleme celou vymoženou dlužnou částku.
     - q: Co přesně dlužníkovi účtujete?
       a: |
@@ -351,7 +353,7 @@ contact:
     message: Napište nám prosím, s čím Vám můžeme pomoci.
 
 footer:
-  tagline: Vymáhání pohledávek z&nbsp;podnikání za 0&nbsp;%. Náklady vymáhání nese dlužník.
+  tagline: Vymáhání pohledávek mezi podnikateli za 0&nbsp;%. Náklady vymáhání nese dlužník.
   serviceTitle: Služba
   service:
     - { label: Jak to funguje, href: "#jak-to-funguje" }
