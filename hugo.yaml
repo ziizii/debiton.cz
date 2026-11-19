@@ -30,7 +30,7 @@ languages:
       ogLocale: cs_CZ
       # Fallback meta description (pages normally set their own).
       description: >-
-        Debiton – vymáhání pohledávek z podnikání. Upomínky posílá advokátní
+        Debiton – vymáhání pohledávek mezi podnikateli. Upomínky posílá advokátní
         kancelář, náklady vymáhání nese dlužník.
 
 enableRobotsTXT: true
