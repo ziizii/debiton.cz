@@ -37,7 +37,7 @@ hero:
     - { label: "Spočítat, kolik Vám dluží", href: "#kalkulacka", ghost: true }
   checks:
     - I&nbsp;malé faktury, bez minimální částky
-    - I&nbsp;jiné pohledávky, včetně za spotřebiteli za procenta z&nbsp;vymožené částky
+    - I&nbsp;jiné pohledávky, včetně za spotřebiteli, za procenta z&nbsp;vymožené částky
     - Upomínky posílá advokátní kancelář
     - Úvodní posouzení zdarma, ozveme se do 1&nbsp;pracovního dne
   invoice:

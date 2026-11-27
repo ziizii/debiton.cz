@@ -1,6 +1,11 @@
 <header class="border-b border-line">
   <div class="mx-auto flex h-[68px] max-w-[1080px] items-center justify-between px-6 max-[480px]:px-4">
     <a class="text-[26px] font-semibold text-green no-underline" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a>
-    <a class="text-[15px] text-muted no-underline hover:text-ink" href="{{ site.Home.RelPermalink }}">{{ i18n "backHome" }}</a>
+    <div class="flex items-center gap-4">
+    {{- range .Translations }}
+      <a class="rounded-[8px] border border-line-2 px-2 py-1 text-[14px] font-semibold text-ink no-underline hover:border-green hover:text-green-deep" href="{{ .RelPermalink }}" hreflang="{{ .Language.Lang }}" lang="{{ .Language.Lang }}" title="{{ .Language.Label }}">{{ .Language.Params.switchLabel | default (upper .Language.Lang) }}</a>
+    {{- end }}
+      <a class="text-[15px] text-muted no-underline hover:text-ink" href="{{ site.Home.RelPermalink }}">{{ i18n "backHome" }}</a>
+    </div>
   </div>
 </header>

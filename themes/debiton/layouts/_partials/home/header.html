@@ -6,6 +6,9 @@
       <a href="{{ .href }}">{{ .label | safeHTML }}</a>
       {{- end }}
     </nav>
+    {{- range .Translations }}
+    <a class="whitespace-nowrap rounded-[8px] border border-line-2 px-2 py-1 text-[14px] font-semibold text-ink no-underline hover:border-green hover:text-green-deep" href="{{ .RelPermalink }}" hreflang="{{ .Language.Lang }}" lang="{{ .Language.Lang }}" title="{{ .Language.Label }}">{{ .Language.Params.switchLabel | default (upper .Language.Lang) }}</a>
+    {{- end }}
     <a class="whitespace-nowrap text-[15.5px] font-semibold text-ink no-underline hover:text-green-deep max-[640px]:hidden" href="mailto:{{ site.Params.contact.email }}">{{ site.Params.contact.email }}</a>
     {{ with .Params.headerCta }}<a class="btn btn-sm max-[640px]:hidden" href="{{ .href }}">{{ .label | safeHTML }}</a>{{ end }}
     <button class="menu-btn hidden min-h-11 cursor-pointer items-center rounded-[10px] border border-line-2 bg-white px-3.5 text-[15px] font-semibold text-ink max-[1060px]:inline-flex" type="button" aria-controls="nav" aria-expanded="false" data-open="{{ i18n "menu" }}" data-close="{{ i18n "menuClose" }}">{{ i18n "menu" }}</button>

@@ -8,6 +8,7 @@ notFoundTitle: Stránka nenalezena
 notFoundText: Tuto stránku jsme nenašli. Možná byla přesunuta nebo odstraněna.
 operatedBy: Službu Debiton provozuje
 seat: se sídlem
+companyId: IČO
 
 # Cookie consent banner (_partials/consent-banner.html, data/tracking/consent.yaml)
 consent.title: Soubory cookie
@@ -24,3 +25,4 @@ consent.analytics.text: Pomáhají nám pochopit, jak návštěvníci web použ�
 consent.marketing: Marketingové
 consent.marketing.text: Umožňují nám měřit účinnost naší reklamy (Google Ads).
 consent.settingsLink: Nastavení cookies
+zeroMoney: "0&nbsp;Kč"
