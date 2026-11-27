@@ -5,13 +5,13 @@
 # Translations: copy this file to content/<lang>/_index.md and translate.
 title: Debiton – vymáhání pohledávek mezi podnikateli za 0 %
 description: >-
-  Akce pro prvních 50 firem: pohledávky mezi podnikateli vymáháme za 0 % z vymožené
+  Akce pro prvních 50 firem pro hromadné vymáhání: pohledávky mezi podnikateli vymáháme za 0 % z vymožené
   částky, i malé faktury bez minimální částky. Upomínky posílá advokátní
   kancelář, náklady nese dlužník.
 og:
   title: Debiton – vymáhání pohledávek mezi podnikateli za 0 %
   description: >-
-    Akce pro prvních 50 firem. Náklady vymáhání nese dlužník, Vám pošleme celou
+    Akce pro prvních 50 firem pro hromadné vymáhání. Náklady vymáhání nese dlužník, Vám pošleme celou
     dlužnou částku. I malé faktury, bez minimální částky.
 
 nav:
@@ -26,17 +26,19 @@ skipLink: Přeskočit na formulář
 mobileCta: Nahrát dlužnou fakturu
 
 hero:
-  badge: Akce pro prvních 50&nbsp;firem
+  badge: Akce pro prvních 50&nbsp;firem pro hromadné vymáhání
   title: Vymáhání pohledávek mezi podnikateli za&nbsp;0&nbsp;%
   text: >-
     Dluží Vám odběratel za fakturu? Pohledávky mezi podnikateli teď vymáháme za
-    0&nbsp;% z&nbsp;vymožené částky. Veškeré náklady vymáhání nese dlužník, Vám
+    0&nbsp;% z&nbsp;vymožené částky. Platí pro hromadné pohledávky pro prvních 50&nbsp;firem.
+    Veškeré náklady vymáhání nese dlužník, Vám
     pošleme celou dlužnou částku.
   ctas:
     - { label: Nahrát dlužnou fakturu, href: "#formular" }
     - { label: "Spočítat, kolik Vám dluží", href: "#kalkulacka", ghost: true }
   checks:
     - I&nbsp;malé faktury, bez minimální částky
+    - I&nbsp;jiné pohledávky, včetně za spotřebiteli za procenta z&nbsp;vymožené částky
     - Upomínky posílá advokátní kancelář
     - Úvodní posouzení zdarma, ozveme se do 1&nbsp;pracovního dne
   invoice:
