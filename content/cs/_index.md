@@ -29,9 +29,8 @@ hero:
   badge: Akce pro prvních 50&nbsp;firem pro hromadné vymáhání
   title: Vymáhání pohledávek mezi podnikateli za&nbsp;0&nbsp;%
   text: >-
-    Dluží Vám odběratel za fakturu? Pohledávky mezi podnikateli teď vymáháme za
-    0&nbsp;% z&nbsp;vymožené částky. Platí pro hromadné pohledávky pro prvních 50&nbsp;firem.
-    Veškeré náklady vymáhání nese dlužník, Vám
+    Dluží Vám odběratel za fakturu? Hromadné pohledávky mezi podnikateli teď
+    vymáháme za 0&nbsp;% z&nbsp;vymožené částky. Veškeré náklady vymáhání nese dlužník, Vám
     pošleme celou dlužnou částku.
   ctas:
     - { label: Nahrát dlužnou fakturu, href: "#formular" }
