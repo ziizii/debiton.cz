@@ -1,5 +1,6 @@
 ---
 title: Zásady zpracování osobních údajů
+translationKey: privacy
 seoTitle: Zásady zpracování osobních údajů – Debiton
 validFrom: Platné od 12. 11. 2026
 noindex: true

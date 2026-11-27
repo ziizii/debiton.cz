@@ -32,7 +32,7 @@
       </div>
     </div>
     <div class="border-t border-night-line pt-5 pb-7 text-[13.5px] leading-[1.6]">
-      {{ i18n "operatedBy" }} {{ $op.name }}, IČO {{ $op.ico | replaceRE " " "&nbsp;" | safeHTML }}, {{ i18n "seat" }} {{ $op.address }}, {{ $op.register }}. {{ $f.legalServices }}<br>
+      {{ i18n "operatedBy" }} {{ $op.name }}, {{ i18n "companyId" | default "IČO" }} {{ $op.ico | replaceRE " " "&nbsp;" | safeHTML }}, {{ i18n "seat" }} {{ $op.address }}, {{ i18n "register" | default $op.register }}. {{ $f.legalServices }}<br>
       © {{ now.Year }} {{ $op.name }}
     </div>
   </div>

@@ -40,7 +40,7 @@
         </div>
         {{- end }}
       </dl>
-      <p class="mt-6 text-[15px] leading-[1.6] text-muted"><span class="font-semibold text-ink">{{ $ct.operatorLabel }}:</span> {{ $op.name }}, IČO {{ $op.ico | replaceRE " " "&nbsp;" | safeHTML }}, {{ $op.address | replaceRE `(\d{3}) (\d{2})` "$1&nbsp;$2" | replaceRE ` (\d+)$` "&nbsp;$1" | safeHTML }}</p>
+      <p class="mt-6 text-[15px] leading-[1.6] text-muted"><span class="font-semibold text-ink">{{ $ct.operatorLabel }}:</span> {{ $op.name }}, {{ i18n "companyId" | default "IČO" }} {{ $op.ico | replaceRE " " "&nbsp;" | safeHTML }}, {{ $op.address | replaceRE `(\d{3}) (\d{2})` "$1&nbsp;$2" | replaceRE ` (\d+)$` "&nbsp;$1" | safeHTML }}</p>
     </div>
 
     <div>

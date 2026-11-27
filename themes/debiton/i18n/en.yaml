@@ -1,0 +1,29 @@
+# UI strings of the theme. Page copy is in content/<lang>/.
+logoAria: Debiton – back to top
+mainNav: Main navigation
+menu: Menu
+menuClose: Close
+backHome: ← Back to home page
+notFoundTitle: Page not found
+notFoundText: We could not find this page. It may have been moved or deleted.
+operatedBy: Debiton is operated by
+seat: registered office
+companyId: Company ID
+register: registered in the Commercial Register kept by the Municipal Court in Prague, file no. C 179593
+
+# Cookie consent banner (_partials/consent-banner.html, data/tracking/consent.yaml)
+consent.title: Cookies
+consent.text: We use necessary cookies to make the website work. With your consent, we also use analytics cookies that help us improve the website and marketing cookies to measure our advertising. You can change your choice at any time in the website footer.
+consent.acceptAll: Accept all
+consent.necessaryOnly: Necessary only
+consent.settings: Settings
+consent.save: Save selection
+consent.alwaysOn: always on
+consent.necessary: Necessary
+consent.necessary.text: They provide basic website functions, such as remembering your cookie choice and protecting forms against spam.
+consent.analytics: Analytics
+consent.analytics.text: They help us understand how visitors use the website (Google Analytics).
+consent.marketing: Marketing
+consent.marketing.text: They allow us to measure how effective our advertising is (Google Ads).
+consent.settingsLink: Cookie settings
+zeroMoney: "CZK&nbsp;0"

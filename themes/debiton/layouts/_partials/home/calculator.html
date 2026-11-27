@@ -22,13 +22,13 @@
         <p class="mt-4 text-[13.5px] leading-normal text-night-text">{{ .note | safeHTML }}</p>
       </div>
       <div class="rounded-2xl bg-white px-7 pt-7 pb-[26px] text-ink" aria-live="polite">
-        <div class="calc-line"><span>{{ .principal | safeHTML }}</span><b id="cPrincipal">0&nbsp;Kč</b></div>
-        <div class="calc-line"><span>{{ .interest | safeHTML }}</span><b id="cInterest">0&nbsp;Kč</b></div>
-        <div class="calc-line"><span id="cFeeLabel">{{ .fee | safeHTML }}</span><b id="cFee">0&nbsp;Kč</b></div>
-        <div class="calc-line border-b-0! pt-3 text-lg"><span class="font-semibold text-ink!">{{ .total | safeHTML }}</span><b id="cTotal">0&nbsp;Kč</b></div>
+        <div class="calc-line"><span>{{ .principal | safeHTML }}</span><b id="cPrincipal">{{ i18n "zeroMoney" | default "0&nbsp;Kč" | safeHTML }}</b></div>
+        <div class="calc-line"><span>{{ .interest | safeHTML }}</span><b id="cInterest">{{ i18n "zeroMoney" | default "0&nbsp;Kč" | safeHTML }}</b></div>
+        <div class="calc-line"><span id="cFeeLabel">{{ .fee | safeHTML }}</span><b id="cFee">{{ i18n "zeroMoney" | default "0&nbsp;Kč" | safeHTML }}</b></div>
+        <div class="calc-line border-b-0! pt-3 text-lg"><span class="font-semibold text-ink!">{{ .total | safeHTML }}</span><b id="cTotal">{{ i18n "zeroMoney" | default "0&nbsp;Kč" | safeHTML }}</b></div>
         <div class="mt-4 mb-[18px] grid grid-cols-2 gap-3">
-          <div class="rounded-[10px] bg-mint p-3.5"><small class="block text-[13.5px] text-muted">{{ .youGet }}</small><b class="mt-0.5 block text-2xl font-semibold tracking-[-.02em] text-green-deep" id="cYou">0&nbsp;Kč</b></div>
-          <div class="rounded-[10px] bg-mint p-3.5"><small class="block text-[13.5px] text-muted">{{ .youPay }}</small><b class="mt-0.5 block text-2xl font-semibold tracking-[-.02em] text-green-deep">0&nbsp;Kč</b></div>
+          <div class="rounded-[10px] bg-mint p-3.5"><small class="block text-[13.5px] text-muted">{{ .youGet }}</small><b class="mt-0.5 block text-2xl font-semibold tracking-[-.02em] text-green-deep" id="cYou">{{ i18n "zeroMoney" | default "0&nbsp;Kč" | safeHTML }}</b></div>
+          <div class="rounded-[10px] bg-mint p-3.5"><small class="block text-[13.5px] text-muted">{{ .youPay }}</small><b class="mt-0.5 block text-2xl font-semibold tracking-[-.02em] text-green-deep">{{ i18n "zeroMoney" | default "0&nbsp;Kč" | safeHTML }}</b></div>
         </div>
         <a class="btn btn-lg w-full" href="#{{ $.Params.form.id }}" id="calcCta">{{ .cta }}</a>
       </div>

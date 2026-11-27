@@ -53,7 +53,8 @@ firebase.json             hosting rules: i18n, headers, redirects
 ### Common edits
 
 - **Phone number:** set `params.contact.phone` and `phoneRaw` in `hugo.yaml`. While they are empty, every phone link and "call us" sentence is hidden.
-- **Text on the page:** `content/cs/_index.md`. Strings may contain HTML entities (`&nbsp;` keeps short words with the next word) and `<strong>`.
+- **Text on the page:** `content/cs/_index.md` and its English twin `content/en/_index.md` – change both. Strings may contain HTML entities (`&nbsp;` keeps short words with the next word) and `<strong>`.
+  In inline YAML (`{ … }`, `[ … ]`) a comma ends the value, so quote any value with a comma, e.g. English amounts: `value: "CZK&nbsp;1,200"`.
 - **Interest rates:** add a row to `data/interest_rates.yaml` on 1 January and 1 July, and update `calculator.note` in the content.
 
 ## Languages
@@ -64,12 +65,20 @@ Firebase Hosting [i18n rewrites](https://firebase.google.com/docs/hosting/i18n-r
 version matching the browser's preferred language, falling back to Czech. This is the same setup as
 www.stuchlikova.com.
 
-To add a language, for example English:
+The site is in Czech (`/cs/`) and English (`/en/`). The CZ/EN switch in the header links each page to its
+translation (`.Translations`); pages with different file names are paired by `translationKey` in the front
+matter (e.g. `ochrana-osobnich-udaju.md` ↔ `privacy-policy.md`). Each language has its own share image
+(`params.ogImage`, `static/og-image-en.png`) and switch label (`params.switchLabel`).
 
-1. Add `en` under `languages` in `hugo.yaml` (`locale`, `label`, `weight`, `contentDir: content/en`, `params.ogLocale`, `params.description`).
-2. Copy `content/cs/` to `content/en/` and translate it. Keep the keys and translate only the values. Fix the language-specific links (`/en/…`).
-3. Add `themes/debiton/i18n/en.yaml` (copy `cs.yaml`).
-4. `make preview` and test with an English browser.
+In the English copy, keep the form fields the office parses in Czech (`form.subject`, `companyPrefix`,
+`contact.tag`, `contact.namePrefix`), so every enquiry arrives in the same format.
+
+To add another language, for example German:
+
+1. Add `de` under `languages` in `hugo.yaml` (`locale`, `label`, `weight`, `contentDir: content/de`, `params.ogLocale`, `params.switchLabel`, `params.ogImage`, `params.description`).
+2. Copy `content/en/` to `content/de/` and translate it. Keep the keys and translate only the values. Fix the language-specific links (`/de/…`).
+3. Add `themes/debiton/i18n/de.yaml` (copy `en.yaml`).
+4. `make preview` and test with a German browser.
 
 ## Themes
 

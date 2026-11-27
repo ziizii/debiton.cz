@@ -28,10 +28,23 @@ languages:
     contentDir: content/cs
     params:
       ogLocale: cs_CZ
+      switchLabel: CZ
       # Fallback meta description (pages normally set their own).
       description: >-
         Debiton – vymáhání pohledávek mezi podnikateli. Upomínky posílá advokátní
         kancelář, náklady vymáhání nese dlužník.
+  en:
+    locale: en-GB
+    label: English
+    weight: 2
+    contentDir: content/en
+    params:
+      ogLocale: en_GB
+      switchLabel: EN
+      ogImage: og-image-en.png
+      description: >-
+        Debiton – B2B debt collection in the Czech Republic. Reminders are sent by a
+        law firm and the debtor bears the collection costs.
 
 enableRobotsTXT: true
 disableKinds: [taxonomy, term, rss]
